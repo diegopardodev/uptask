@@ -16,7 +16,7 @@ export default function SignUpPage() {
             
             <div className="mt-10 space-y-2">
                 <Heading>Create an account</Heading>
-                <Heading level={5}>Start planning you team&apos;s work in minutes</Heading>
+                <Heading level={5} className="text-gray-500">Start planning you team&apos;s work in minutes</Heading>
             </div>
 
             <SignUpForm />

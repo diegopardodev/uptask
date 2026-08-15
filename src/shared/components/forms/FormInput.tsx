@@ -14,7 +14,7 @@ export default function FormInput(props: Props) {
                     {...props}
                     aria-invalid="true"
                     aria-describedby="email-error"
-                    className={clsx("col-start-1 row-start-1 block w-full rounded-md bg-white py-1.5 pr-10 pl-3 sm:pr-9 text-sm outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-primary", className)}
+                    className={clsx("col-start-1 row-start-1 block w-full rounded-md bg-white py-2 pr-10 pl-3 sm:pr-9 text-sm outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-primary", className)}
                 />
                 {/* Error classes: text-red-900 outline-1 -outline-offset-1 outline-red-300 placeholder:text-red-300 focus:outline-2 focus:-outline-offset-2 focus:outline-red-600 */}
                 {/* <ExclamationCircleIcon
