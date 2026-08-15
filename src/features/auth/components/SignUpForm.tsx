@@ -6,15 +6,24 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Form, FormError, FormInput, FormLabel, FormSubmit } from "@/src/shared/components/forms";
 import { SignUpInput, SignUpSchema } from "../schemas";
 import { signUpAction } from "../actions";
+import { toast } from "sonner";
 
 export default function SignUpForm() {
-    const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm({
+    const { register, handleSubmit, formState: { errors, isSubmitting }, reset } = useForm({
         resolver: zodResolver(SignUpSchema),
         mode: "all"
     });
 
     const onSubmit = async (data: SignUpInput) => {
-        await signUpAction(data);
+        const response = await signUpAction(data);
+
+        if (!response.ok) {
+            toast.error(response.error);
+            return;
+        }
+
+        toast.success(response.message);
+        reset();
     };
 
     return (

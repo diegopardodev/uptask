@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Rubik, Geist } from "next/font/google";
+import { Toaster } from "sonner";
 import "./globals.css";
 
 const rubik = Rubik({
@@ -29,6 +30,14 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     >
       <body className="min-h-full flex flex-col">
         {children}
+        <Toaster
+          position="top-right"
+          theme="light"
+          richColors={true}
+          closeButton={false}
+          visibleToasts={1}
+          duration={5000}
+        />
       </body>
     </html>
   );
