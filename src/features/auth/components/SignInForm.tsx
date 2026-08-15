@@ -1,9 +1,33 @@
+"use client";
+
 import Link from "next/link";
-import { Form, FormLabel, FormInput, FormSubmit } from "@/src/shared/components/forms";
+import { redirect } from "next/navigation";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { toast } from "sonner";
+import { Form, FormLabel, FormInput, FormSubmit, FormError } from "@/src/shared/components/forms";
+import { SignInInput, SignInSchema } from "../schemas";
+import { signInAction } from "../actions";
 
 export default function SignInForm() {
+    const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm({
+        resolver: zodResolver(SignInSchema),
+        mode: "all"
+    });
+
+    const onSubmit = async (data: SignInInput) => {
+        const response = await signInAction(data);
+
+        if (!response.ok) {
+            toast.error(response.error);
+            return;
+        }
+
+        redirect("/");
+    };
+
     return (
-        <Form className="mt-10">
+        <Form className="mt-10" onSubmit={handleSubmit(onSubmit)}>
             <div className="space-y-2">
                 <FormLabel htmlFor="email">Email</FormLabel>
                 <FormInput
@@ -11,7 +35,9 @@ export default function SignInForm() {
                     type="email"
                     autoComplete="email"
                     placeholder="you@company.com"
+                    {...register("email")}
                 />
+                {errors.email && <FormError>{errors.email.message}</FormError>}
             </div>
 
             <div className="space-y-2">
@@ -24,11 +50,12 @@ export default function SignInForm() {
                     type="password"
                     autoComplete="current-password"
                     placeholder="••••••••"
+                    {...register("password")}
                 />
-                <p className="text-sm">At least 8 characters</p>
+                {errors.password && <FormError>{errors.password.message}</FormError>}
             </div>
 
-            <FormSubmit>Sign In</FormSubmit>
+            <FormSubmit loading={isSubmitting}>{ isSubmitting ? "Signing in..." : "Sign In" }</FormSubmit>
 
             <p className="text-sm text-center">Don&apos;t have an account? <Link href="/auth/sign-up" className="text-primary-500 hover:underline"> Sign Up</Link></p>
         </Form>

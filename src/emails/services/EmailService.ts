@@ -8,7 +8,7 @@ export class EmailService {
             console.log(`Email sent: ${info.messageId}`);
         } catch (error) {
             console.error(error);
-            throw new Error("Couldn't send the email");
+            throw new Error("We couldn't send that email. Try again in a few minutes.");
         }
     }
 }

@@ -1,16 +1,19 @@
 "use server";
 
 import { actionError } from "@/src/shared/types/result";
-import { SignUpInput, SignUpSchema } from "../schemas";
+import { SignInInput, SignInSchema, SignUpInput, SignUpSchema } from "../schemas";
 import { authService } from "../services/AuthService";
 
 export async function signUpAction(input: SignUpInput) {
     const data = SignUpSchema.safeParse(input);
+    if (!data.success) return actionError("Invalid data");
 
-    if (!data.success) {
-        return actionError("Invalid data");
-    }
+    return await authService.signUp(data.data);
+}
 
-    const response = await authService.signUp(data.data);
-    return response;
+export async function signInAction(input: SignInInput) {
+    const data = SignInSchema.safeParse(input);
+    if (!data.success) return actionError("Invalid data");
+
+    return await authService.signIn(input);
 }

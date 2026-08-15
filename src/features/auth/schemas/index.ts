@@ -17,4 +17,11 @@ export const SignUpSchema = BaseSchema.pick({
     error: "Passwords don't match"
 });
 
-export type SignUpInput = z.infer<typeof BaseSchema>;
+export const SignInSchema = BaseSchema.pick({
+    email: true
+}).extend({
+    password: z.string().min(1, { error: "Enter a password" })
+});
+
+export type SignUpInput = z.infer<typeof SignUpSchema>;
+export type SignInInput = z.infer<typeof SignInSchema>;
