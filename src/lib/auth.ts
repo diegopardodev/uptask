@@ -13,13 +13,16 @@ export const auth = betterAuth({
     }),
     emailAndPassword: {
         enabled: true,
-        requireEmailVerification: true
+        requireEmailVerification: true,
+        sendResetPassword: async ({ user: { email }, url }) => {
+            await AuthEmailService.sendResetPasswordEmail(email, url);
+        }
     },
     emailVerification: {
         sendOnSignIn: true,
         autoSignInAfterVerification: true,
-        sendVerificationEmail: async ({ user, url }) => {
-            await AuthEmailService.sendConfirmEmail(user.email, url);
+        sendVerificationEmail: async ({ user: { email }, url }) => {
+            await AuthEmailService.sendConfirmEmail(email, url);
         }
     },
     plugins: [nextCookies()]

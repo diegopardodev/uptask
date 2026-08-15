@@ -27,7 +27,7 @@ export default function SignUpForm() {
     };
 
     return (
-        <Form className="mt-10" onSubmit={handleSubmit(onSubmit)}>
+        <Form className="mt-10" onSubmit={handleSubmit(onSubmit)} aria-live={isSubmitting ? "polite" : "off"}>
             <div className="space-y-2">
                 <FormLabel htmlFor="name">Name</FormLabel>
                 <FormInput
@@ -35,6 +35,7 @@ export default function SignUpForm() {
                     type="text"
                     autoComplete="name"
                     placeholder="Ada Lovelace"
+                    error={errors.name ? true : false}
                     {...register("name")}
                 />
                 {errors.name && <FormError>{errors.name.message}</FormError>}
@@ -47,6 +48,7 @@ export default function SignUpForm() {
                     type="email"
                     autoComplete="email"
                     placeholder="you@company.com"
+                    error={errors.email ? true : false}
                     {...register("email")}
                 />
                 {errors.email && <FormError>{errors.email.message}</FormError>}
@@ -59,6 +61,8 @@ export default function SignUpForm() {
                     type="password"
                     autoComplete="new-password"
                     placeholder="••••••••"
+                    error={errors.password ? true : false}
+                    aria-describedby="Password must be at least 8 characters"
                     {...register("password")}
                 />
                 {
@@ -74,14 +78,19 @@ export default function SignUpForm() {
                     type="password"
                     autoComplete="new-password"
                     placeholder="••••••••"
+                    error={errors.passwordConfirmation ? true : false}
                     {...register("passwordConfirmation")}
                 />
                 {errors.passwordConfirmation && <FormError>{errors.passwordConfirmation.message}</FormError>}
             </div>
 
-            <FormSubmit loading={isSubmitting}>{isSubmitting ? "Creating account..." : "Create account"}</FormSubmit>
+            <FormSubmit
+                loading={isSubmitting}
+            >
+                {isSubmitting ? "Creating account…" : "Create account"}
+            </FormSubmit>
 
-            <p className="text-sm text-center">Already have an account? <Link href="/auth/sign-in" className="text-primary-500 hover:underline"> Sign In</Link></p>
+            <p className="text-sm text-center">Already have an account? <Link href="/auth/sign-in" className="text-primary-500 hover:underline"> sign in</Link></p>
         </Form>
     );
 }

@@ -17,15 +17,15 @@ import {
 import { emailTheme } from "../config/theme";
 import { env } from "@/src/lib/env";
 
-interface ConfirmEmailProps {
+interface ResetPasswordProps {
     url: string;
 }
 
-export const ConfirmEmail = ({ url }: ConfirmEmailProps) => (
+export const ResetPasswordEmail = ({ url }: ResetPasswordProps) => (
     <Tailwind theme={emailTheme}>
         <Html>
             <Head />
-            <Preview>One click and your account is ready.</Preview>
+            <Preview>The link is good for one hour.</Preview>
             <Body className="bg-bg-2 m-0 text-center font-sans">
                 <Container className="max-mobile:mt-0 mx-auto mt-8 w-full max-w-160">
                     <Section>
@@ -62,42 +62,44 @@ export const ConfirmEmail = ({ url }: ConfirmEmailProps) => (
                                         className="w-auto pointer-events-none mx-auto mb-5 block"
                                     />
                                     <Heading as="h1" className="text-28 text-fg m-0 font-sans">
-                                        We&apos;re almost there
+                                        Reset your password
                                     </Heading>
                                 </Section>
 
                                 <Text className="text-16 text-fg-2 mx-auto mt-0 mb-8 max-w-95 text-center font-sans">
-                                    Thank you for signing up for UpTask.
-                                    <br />
-                                    To verify your account, we just need to confirm your email
-                                    address.
+                                    We got a request to reset the password for your UpTask
+                                    account. Choose a new one here:
                                 </Text>
 
                                 <Section className="mb-6 text-center">
                                     <Button
-                                        href={url}
+                                        href={`${url}/auth/reset-password`}
                                         className="bg-primary-500 text-16 text-white inline-block rounded-lg px-7 py-4 text-center font-serif leading-6"
                                     >
-                                        Confirm my email
+                                        Set a new password
                                     </Button>
                                 </Section>
+
+                                <Text className="text-13 text-fg-3 mx-auto mt-0 mb-8 max-w-100 text-center font-sans">
+                                    This link expires in 1 hour and can only be used once.
+                                </Text>
 
                                 <Section className="mx-auto max-w-100 text-center">
                                     <Text className="text-13 text-fg-3 m-0 text-center font-sans">
                                         Button not working? Paste this into your browser:
                                     </Text>
                                     <Link
-                                        href={url}
+                                        href={`${url}/auth/reset-password`}
                                         className="text-13 text-primary-600 mt-1 block break-all text-center font-sans underline"
                                     >
-                                        {url}
+                                        {url}/auth/reset-password
                                     </Link>
                                 </Section>
 
                                 <Text className="text-13 text-fg-3 mx-auto mt-8 mb-0 max-w-100 text-center font-sans">
-                                    If you didn&apos;t request this,
+                                    If you didn&apos;t request this, no action is needed —
                                     <br />
-                                    please ignore this email.
+                                    your password hasn&apos;t changed.
                                 </Text>
                             </Section>
 
@@ -118,21 +120,23 @@ export const ConfirmEmail = ({ url }: ConfirmEmailProps) => (
     </Tailwind>
 );
 
-ConfirmEmail.text = ({ url }: ConfirmEmailProps) => `We're almost there
+ResetPasswordEmail.text = ({ url }: ResetPasswordProps) => `Reset your password
 
-Thank you for signing up for UpTask. To verify your account, we just
-need to confirm your email address.
+We got a request to reset the password for your UpTask account.
+Choose a new one here:
 
-Confirm my email:
 ${url}
 
-If you didn't request this, please ignore this email.
+This link expires in 1 hour and can only be used once.
+
+If you didn't request this, no action is needed — your password
+hasn't changed.
 
 — The UpTask team
 `;
 
-ConfirmEmail.PreviewProps = {
-    url: "http://localhost:3000",
-} satisfies ConfirmEmailProps;
+ResetPasswordEmail.PreviewProps = {
+    url: "http://localhost:3000/auth/reset-password/abc123",
+} satisfies ResetPasswordProps;
 
-export default ConfirmEmail;
+export default ResetPasswordEmail;

@@ -1,7 +1,7 @@
 import { APIError } from "better-auth";
 import { headers } from "next/headers";
 import { auth } from "@/src/lib/auth";
-import { SignInInput, SignUpInput } from "../schemas";
+import { ForgotPasswordInput, ResetPasswordInput, SignInInput, SignUpInput } from "../schemas";
 import { actionError, actionOk } from "@/src/shared/types/result";
 import { authRepository, IAuthRepository } from "./AuthRepository";
 
@@ -32,7 +32,7 @@ class AuthService {
                 return actionError(error.message);
             }
             
-            return actionError("Couldn't sign up");
+            return actionError("Something went wrong on our end. Try again in a moment.");
         }
     }
 
@@ -58,7 +58,42 @@ class AuthService {
                 return actionError(error.message);
             }
 
-            return actionError("Couldn't sign in");
+            return actionError("Something went wrong on our end. Try again in a moment.");
+        }
+    }
+
+    async forgotPassword(credentials: ForgotPasswordInput) {
+        const { email } = credentials;
+
+        try {
+            await auth.api.requestPasswordReset({
+                body: {
+                    email
+                }
+            });
+
+            return actionOk(`If an account exists for ${email}, we've sent a link to reset your password. It expires in 1 hour.`);
+        } catch (error) {
+            if (error instanceof APIError) return actionError(error.message);
+            return actionError("Something went wrong on our end. Try again in a moment.");
+        }
+    }
+
+    async resetPassword(credentials: ResetPasswordInput, token: string) {
+        const { password } = credentials;
+
+        try {
+            await auth.api.resetPassword({
+                body: {
+                    newPassword: password,
+                    token
+                }
+            });
+
+            return actionOk("Password updated. Sign in with your new password.");
+        } catch (error) {
+            if (error instanceof APIError) return actionError(error.message);
+            return actionError("Something went wrong on our end. Try again in a moment.");
         }
     }
 }

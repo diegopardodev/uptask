@@ -23,5 +23,19 @@ export const SignInSchema = BaseSchema.pick({
     password: z.string().min(1, { error: "Enter a password" })
 });
 
+export const ForgotPasswordSchema = BaseSchema.pick({
+    email: true
+});
+
+export const ResetPasswordSchema = BaseSchema.pick({
+    password: true,
+    passwordConfirmation: true
+}).refine(data => data.password === data.passwordConfirmation, {
+    path: ["passwordConfirmation"],
+    error: "Passwords don't match"
+});
+
 export type SignUpInput = z.infer<typeof SignUpSchema>;
 export type SignInInput = z.infer<typeof SignInSchema>;
+export type ForgotPasswordInput = z.infer<typeof ForgotPasswordSchema>;
+export type ResetPasswordInput = z.infer<typeof ResetPasswordSchema>;

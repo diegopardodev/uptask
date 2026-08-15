@@ -3,10 +3,10 @@ import Link from "next/link";
 
 export default function Logo() {
     return (
-        <Link href="/">
+        <Link href="/" aria-label="UpTask home">
             <Image
                 src="/logo.svg"
-                alt="Uptask"
+                alt="UpTask"
                 width={0}
                 height={0}
                 priority

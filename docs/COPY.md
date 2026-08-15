@@ -535,25 +535,6 @@ If you didn't request this, you can ignore this email.
 
 ---
 
-## 13. Accessibility strings
-
-Not visible on screen, but part of the copy — screen readers and assistive tech read these.
-
-| Element | Text | Status |
-| --- | --- | --- |
-| Loading spinner | `Loading` (`aria-label`, with `role="status"`) | `Spinner` |
-| Logo | `UpTask` (`alt`) | `Logo` ships `Uptask` — wrong capitalization of the product name. |
-| Logo link | `UpTask home` (`aria-label`) | The logo wraps a `Link` to `/` with no label. |
-| Password visibility toggle | `Show password` / `Hide password` | No toggle. |
-| Submit pending region | `Submitting the form` (`aria-live="polite"`) | |
-| Error summary region | `There's a problem with this form` (`aria-live="assertive"`) | |
-| Required field marker | `required` | No field is marked required. |
-| Password requirements region | `Password must be at least 8 characters` (`aria-describedby`) | The helper text exists but nothing points at it. |
-
-> **`FormInput` hardcodes `aria-invalid="true"` and `aria-describedby="email-error"` on every input.** Assistive tech therefore announces every field — name, email, both passwords — as invalid at all times, and points each one at an element ID that doesn't exist. Both attributes need to be driven by the field's actual error state, and `FormError` needs to render the matching `id`. This outranks every other item in this table.
-
----
-
 ## Account enumeration
 
 Three flows must never reveal whether an email is registered:
@@ -568,44 +549,12 @@ Sign-up is the deliberate exception: it must say `An account with this email alr
 
 ---
 
-## Drift
-
-Places where the code and this document disagree. Copy fixes are cheap; each one is a string.
-
-### Fix the code to match this document
-
-| # | Where | Shipped | Should be |
-| --- | --- | --- | --- |
-| 1 | `SignInForm.tsx` submit, footer link | `Sign In`, `Sign Up` | `Sign in`, `Sign up` — sentence case |
-| 2 | `SignUpForm.tsx` footer link | `Sign In` | `Sign in` |
-| 3 | `app/auth/sign-in/page.tsx` metadata | `title: "Sign In"` | `title: "Sign in"` |
-| 4 | `app/auth/sign-up/page.tsx` subheading | `Start planning you team's work in minutes` | `Start planning your team's work in minutes` — **typo**, "you" for "your" |
-| 5 | `SignUpForm.tsx` pending label | `Creating account...` | `Creating account…` — one ellipsis character |
-| 6 | `Logo.tsx` | `alt="Uptask"` | `alt="UpTask"`, plus `aria-label="UpTask home"` on the link |
-| 7 | `ConfirmEmail.tsx` | `alt="UpTask Logo"` (×2) | `alt="UpTask"` |
-| 8 | `ConfirmEmail.tsx` heading | `We're almost there!` | Drop it, or replace with a plain line — no exclamation marks |
-| 9 | `ConfirmEmail.tsx` button | `Confirm email` | `Confirm my email` |
-| 10 | `ConfirmEmail.tsx` sign-off | `- The UpTask team` | `— The UpTask team` — em dash |
-| 11 | `ConfirmEmail.tsx` preheader | `Confirm your email address` | `One click and your account is ready.` |
-| 12 | `actions/index.ts` | `Invalid data` (×2) | `Check the form and try again.` |
-| 13 | `AuthService.ts` | `Couldn't sign up` / `Couldn't sign in` | `Something went wrong on our end. Try again in a moment.` |
-
 ### Needs code, not just copy
 
 | # | Issue |
 | --- | --- |
-| 14 | **`FormInput` hardcodes `aria-invalid="true"` and `aria-describedby="email-error"`** on every input. See section 13. |
-| 15 | **Sign-in leaks account existence** — the unknown-email and wrong-password branches return different strings. See [Account enumeration](#account-enumeration). |
-| 16 | **No pending state on sign-in.** `SignInForm` destructures `isSubmitting` and never uses it; `FormSubmit` is rendered without `loading`, so the button stays enabled and double-submits. `SignUpForm` does this correctly — copy that pattern. |
 | 17 | **Better Auth `APIError.message` is forwarded to users** in both `signUp` and `signIn`. Map known cases to the copy here; fall back to the generic server error. |
 | 18 | **No form-level banner component.** Everything is a toast, and `visibleToasts` is 1, so a second error replaces the first. Errors that need a persistent, re-readable surface — unconfirmed email with a resend action, rate limits — need a banner. |
-| 19 | **Helper text and field errors are mutually exclusive.** `{errors.password ? <FormError/> : <p>At least 8 characters</p>}` hides the requirement exactly when the user has failed to meet it. Show both. |
-| 20 | **`Forgot your password?` links to `/`.** Dead until section 5 exists. |
-| 21 | **Password helper text on the sign-in form.** Remove it — sign-in enforces no length rule (see section 10). |
-| 22 | **Sign-up doesn't hand off.** It resets the form instead of routing to `/auth/confirm-email` (section 2). |
-| 23 | **No `Hi {name}` in the confirmation email.** `ConfirmEmail` only receives `url`; Better Auth's hook already has `user`. |
-| 24 | **`EMAIL_FROM` is documented in the README but doesn't exist** in `src/lib/env.ts`. Addresses are hardcoded in `src/emails/config/index.ts`. |
-| 25 | **No plain-text email alternative** is rendered alongside the HTML. |
 
 ---
 
