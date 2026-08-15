@@ -8,7 +8,7 @@ type TransportConfig = {
         user: string;
         pass: string;
     }
-}
+};
 
 const config = (): TransportConfig => {
     return {
@@ -18,7 +18,7 @@ const config = (): TransportConfig => {
             user: env.SMTP_USER,
             pass: env.SMTP_PASS
         }
-    }
-}
+    };
+};
 
 export const transporter = nodemailer.createTransport(config());
