@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Rubik, Geist } from "next/font/google";
 import { Toaster } from "sonner";
+import { env } from "@/src/lib/env";
 import "./globals.css";
 
 const rubik = Rubik({
@@ -15,11 +16,11 @@ const geist = Geist({
 
 export const metadata: Metadata = {
   title: {
-    default: process.env.APP_NAME!,
-    template: `${process.env.APP_NAME} - %s`
+    default: env.APP_NAME,
+    template: `${env.APP_NAME} - %s`
   },
-  applicationName: `${process.env.APP_NAME}`,
-  description: `${process.env.APP_NAME} is a project and task manager for small teams — plan the work, assign it, and track it to done.`,
+  applicationName: `${env.APP_NAME}`,
+  description: `${env.APP_NAME} is a project and task manager for small teams — plan the work, assign it, and track it to done.`,
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

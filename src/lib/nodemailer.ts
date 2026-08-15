@@ -1,4 +1,5 @@
 import nodemailer from "nodemailer";
+import { env } from "./env";
 
 type TransportConfig = {
     host: string;
@@ -11,11 +12,11 @@ type TransportConfig = {
 
 const config = (): TransportConfig => {
     return {
-        host: process.env.SMTP_HOST!,
-        port: +process.env.SMTP_PORT!,
+        host: env.SMTP_HOST,
+        port: env.SMTP_PORT,
         auth: {
-            user: process.env.SMTP_USER!,
-            pass: process.env.SMTP_PASS!
+            user: env.SMTP_USER,
+            pass: env.SMTP_PASS
         }
     }
 }

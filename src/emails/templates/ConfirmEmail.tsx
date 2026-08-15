@@ -14,8 +14,7 @@ import {
     Text,
 } from "react-email";
 import { emailTheme } from "../config/theme";
-
-const baseUrl = process.env.APP_URL!;
+import { env } from "@/src/lib/env";
 
 interface ConfirmEmailProps {
     url: string;
@@ -36,7 +35,7 @@ export const ConfirmEmail = ({ url }: ConfirmEmailProps) => (
                                         <Row>
                                             <Column className="w-8 align-middle">
                                                 <Img
-                                                    src={`${baseUrl}/icon.svg`}
+                                                    src={`${env.APP_URL}/icon.svg`}
                                                     alt="UpTask Logo"
                                                     width={23}
                                                     className="block"
@@ -55,7 +54,7 @@ export const ConfirmEmail = ({ url }: ConfirmEmailProps) => (
                             <Section className="bg-bg-2 max-mobile:px-6 max-mobile:py-12 rounded-lg px-10 py-16 text-center">
                                 <Section>
                                     <Img
-                                        src={`${baseUrl}/logo.svg`}
+                                        src={`${env.APP_URL}/logo.svg`}
                                         alt="UpTask Logo"
                                         width={100}
                                         height={100}
