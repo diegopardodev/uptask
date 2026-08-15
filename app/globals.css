@@ -1,1 +1,9 @@
 @import "tailwindcss";
+
+@theme {
+    --color-pink: oklch(0.5915 0.2569 322.9);
+    --color-purple: oklch(0.709 0.1592 293.54);
+    --font-sans: var(--font-rubik);
+    --font-serif: var(--font-geist);
+    --default-font-family: var(--font-sans)
+}
