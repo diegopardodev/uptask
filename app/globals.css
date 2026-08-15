@@ -1,8 +1,32 @@
 @import "tailwindcss";
 
 @theme {
-    --color-pink: oklch(0.5915 0.2569 322.9);
-    --color-purple: oklch(0.709 0.1592 293.54);
+    --color-primary-50: oklch(0.969 0.014 293.54);
+    --color-primary-100: oklch(0.943 0.025 293.54);
+    --color-primary-200: oklch(0.894 0.050 293.54);
+    --color-primary-300: oklch(0.811 0.097 293.54);
+    --color-primary-400: oklch(0.709 0.1592 293.54);
+    --color-primary-500: oklch(0.606 0.218 293.54);
+    --color-primary-600: oklch(0.541 0.245 293.54);
+    --color-primary-700: oklch(0.491 0.235 293.54);
+    --color-primary-800: oklch(0.432 0.202 293.54);
+    --color-primary-900: oklch(0.380 0.164 293.54);
+    --color-primary-950: oklch(0.283 0.123 293.54);
+    --color-primary: var(--color-primary-400);
+
+    --color-secondary-50: oklch(0.977 0.015 322.9);
+    --color-secondary-100: oklch(0.952 0.032 322.9);
+    --color-secondary-200: oklch(0.903 0.067 322.9);
+    --color-secondary-300: oklch(0.833 0.127 322.9);
+    --color-secondary-400: oklch(0.740 0.209 322.9);
+    --color-secondary-500: oklch(0.667 0.259 322.9);
+    --color-secondary-600: oklch(0.5915 0.2569 322.9);
+    --color-secondary-700: oklch(0.518 0.222 322.9);
+    --color-secondary-800: oklch(0.452 0.185 322.9);
+    --color-secondary-900: oklch(0.401 0.149 322.9);
+    --color-secondary-950: oklch(0.293 0.119 322.9);
+    --color-secondary: var(--color-secondary-600);
+
     --font-sans: var(--font-rubik);
     --font-serif: var(--font-geist);
     --default-font-family: var(--font-sans)
