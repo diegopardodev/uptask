@@ -4,7 +4,7 @@ type Props = {
     children: React.ReactNode;
     level?: 1 | 2 | 3 | 4 | 5 | 6;
     className?: string;
-}
+};
 
 const sizeMap: Record<number, string> = {
     1: "text-3xl md:text-5xl font-bold",
@@ -13,7 +13,7 @@ const sizeMap: Record<number, string> = {
     4: "text-md md:text-xl",
     5: "text-sm md:text-lg font-serif",
     6: "text-sm md:text-md font-serif"
-}
+};
 
 export default function Heading({ level = 1, children, className }: Props) {
     const Tag: React.ElementType = `h${level}`;
