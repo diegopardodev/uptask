@@ -1,5 +1,5 @@
-import { Form, FormInput, FormLabel, FormSubmit } from "@/src/shared/components/forms";
 import Link from "next/link";
+import { Form, FormInput, FormLabel, FormSubmit } from "@/src/shared/components/forms";
 
 export default function SignUpForm() {
     return (
