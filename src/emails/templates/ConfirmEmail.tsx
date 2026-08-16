@@ -25,7 +25,7 @@ export const ConfirmEmail = ({ url }: ConfirmEmailProps) => (
     <Tailwind theme={emailTheme}>
         <Html>
             <Head />
-            <Preview>One click and your account is ready.</Preview>
+            <Preview>One click and you&apos;re in.</Preview>
             <Body className="bg-bg-2 m-0 text-center font-sans">
                 <Container className="max-mobile:mt-0 mx-auto mt-8 w-full max-w-160">
                     <Section>
@@ -78,7 +78,7 @@ export const ConfirmEmail = ({ url }: ConfirmEmailProps) => (
                                         href={url}
                                         className="bg-primary-500 text-16 text-white inline-block rounded-lg px-7 py-4 text-center font-serif leading-6"
                                     >
-                                        Confirm my email
+                                        Confirm my account
                                     </Button>
                                 </Section>
 

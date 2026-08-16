@@ -14,7 +14,7 @@ class AuthService {
         const { name, email, password } = credentials;
 
         const user = await this.authRepository.findByEmail(email);
-        if (user) return actionError("An account with this email already exists");
+        if (user) return actionError("An account with this email already exists.");
 
         try {
             await auth.api.signUpEmail({

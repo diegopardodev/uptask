@@ -20,7 +20,7 @@ export default function EmptyState() {
                 />
             </svg>
             <h3 className="mt-2 text-sm font-semibold text-gray-900">No projects yet</h3>
-            <p className="mt-1 text-sm text-gray-500">Create a project to start planning your tem&apos;s work.</p>
+            <p className="mt-1 text-sm text-gray-500">Create a project to start planning your team&apos;s work.</p>
             <div className="mt-6">
                 <Link
                     href="/projects/new"

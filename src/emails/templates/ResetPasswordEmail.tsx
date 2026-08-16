@@ -25,7 +25,7 @@ export const ResetPasswordEmail = ({ url }: ResetPasswordProps) => (
     <Tailwind theme={emailTheme}>
         <Html>
             <Head />
-            <Preview>The link is good for one hour.</Preview>
+            <Preview>The link expires in 1 hour.</Preview>
             <Body className="bg-bg-2 m-0 text-center font-sans">
                 <Container className="max-mobile:mt-0 mx-auto mt-8 w-full max-w-160">
                     <Section>

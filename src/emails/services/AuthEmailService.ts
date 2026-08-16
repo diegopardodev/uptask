@@ -12,7 +12,7 @@ export class AuthEmailService {
         await EmailService.send({
             from: config.from.accounts,
             to: email,
-            subject: "Confirm your UpTask email",
+            subject: "Confirm your UpTask account",
             html,
             text: ConfirmEmail.text({ url })
         });
