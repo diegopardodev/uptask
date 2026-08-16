@@ -4,6 +4,7 @@ import Link from "next/link";
 export default function Logo() {
     return (
         <Link href="/" aria-label="UpTask home">
+            <span className="sr-only">UpTask</span>
             <Image
                 src="/logo.svg"
                 alt="UpTask"
