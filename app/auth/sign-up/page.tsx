@@ -13,7 +13,7 @@ export default function SignUpPage() {
         <div className="max-w-xl mx-auto w-full">
             <div className="mt-10 space-y-2">
                 <UnderlineHeading title="Create an" highlight="account" />
-                <Heading level={5} className="text-gray-500">Start planning your team&apos;s work in minutes</Heading>
+                <Heading level={5}>Start planning your team&apos;s work in minutes</Heading>
             </div>
 
             <SignUpForm />

@@ -3,10 +3,10 @@
 import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { toast } from "sonner";
 import { Form, FormError, FormInput, FormLabel, FormSubmit } from "@/src/shared/components/forms";
 import { SignUpInput, SignUpSchema } from "../schemas";
 import { signUpAction } from "../actions";
-import { toast } from "sonner";
 
 export default function SignUpForm() {
     const { register, handleSubmit, formState: { errors, isSubmitting }, reset } = useForm({
@@ -90,7 +90,7 @@ export default function SignUpForm() {
                 {isSubmitting ? "Creating account…" : "Create account"}
             </FormSubmit>
 
-            <p className="text-sm text-center">Already have an account? <Link href="/auth/sign-in" className="text-primary-500 hover:underline"> sign in</Link></p>
+            <p className="text-sm text-center">Already have an account? <Link href="/auth/sign-in" className="text-primary-500 hover:underline"> Sign in</Link></p>
         </Form>
     );
 }

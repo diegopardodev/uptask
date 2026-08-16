@@ -12,7 +12,7 @@ export default function Page() {
         <div className="max-w-xl mx-auto w-full">
             <div className="mt-10 space-y-2">
                 <UnderlineHeading title="Set a new" highlight="password" />
-                <Heading level={5} className="text-gray-500">Choose a password you haven&apos;t used on UpTask before.</Heading>
+                <Heading level={5}>Choose a password you haven&apos;t used on UpTask before.</Heading>
             </div>
 
             <ResetPasswordForm />

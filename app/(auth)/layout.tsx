@@ -1,13 +1,19 @@
-import Link from "next/link";
 import Image from "next/image";
+import { redirect } from "next/navigation";
 import { Disclosure, DisclosureButton, DisclosurePanel } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import LogoMark from "@/src/shared/components/ui/LogoMark";
 import MobileUserMenu from "@/src/shared/components/dashboard/MobileUserMenu";
 import UserMenu from "@/src/shared/components/dashboard/UserMenu";
 import NotificationsPanel from "@/src/shared/components/dashboard/NotificationsPanel";
+import Navigation from "@/src/shared/components/dashboard/Navigation";
+import MobileNavigation from "@/src/shared/components/dashboard/MobileNavigation";
+import { getSession } from "@/src/shared/utils/auth-server";
 
 export default async function Layout({children}: LayoutProps<"/">) {
+    const session = await getSession();
+    if (!session) redirect("/auth/sign-in");
+
     return (
         <>
             <Disclosure
@@ -20,26 +26,7 @@ export default async function Layout({children}: LayoutProps<"/">) {
                             <div className="flex shrink-0 items-center">
                                 <LogoMark />
                             </div>
-                            <div className="hidden sm:ml-6 sm:flex sm:space-x-8">
-                                <Link
-                                    href="/dashboard"
-                                    className="inline-flex items-center border-b-2 border-primary-500 px-1 pt-1 text-sm font-medium text-gray-900"
-                                >
-                                    Dashboard
-                                </Link>
-                                <Link
-                                    href="#"
-                                    className="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700"
-                                >
-                                    Projects
-                                </Link>
-                                <Link
-                                    href="#"
-                                    className="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700"
-                                >
-                                    My tasks
-                                </Link>
-                            </div>
+                            <Navigation />
                         </div>
                         <div className="hidden sm:ml-6 sm:flex sm:items-center">
                             <NotificationsPanel />
@@ -57,26 +44,7 @@ export default async function Layout({children}: LayoutProps<"/">) {
                 </div>
 
                 <DisclosurePanel className="sm:hidden">
-                    <div className="space-y-1 pt-2 pb-3">
-                        <Link
-                            href="/dashboard"
-                            className="block border-l-4 border-primary-500 bg-indigo-50 py-2 pr-4 pl-3 text-base font-medium text-primary-600"
-                        >
-                            Dashboard
-                        </Link>
-                        <Link
-                            href="#"
-                            className="block border-l-4 border-transparent py-2 pr-4 pl-3 text-base font-medium text-gray-500 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-700"
-                        >
-                            Projects
-                        </Link>
-                        <Link
-                            href="#"
-                            className="block border-l-4 border-transparent py-2 pr-4 pl-3 text-base font-medium text-gray-500 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-700"
-                        >
-                            My tasks
-                        </Link>
-                    </div>
+                    <MobileNavigation />
                     <div className="border-t border-gray-200 pt-4 pb-3">
                         <div className="flex items-center px-4">
                             <div className="shrink-0">
@@ -89,8 +57,8 @@ export default async function Layout({children}: LayoutProps<"/">) {
                                 />
                             </div>
                             <div className="ml-3">
-                                <div className="text-base font-medium text-gray-800">Diego Pardo</div>
-                                <div className="text-sm font-medium text-gray-500">engineer.pardo@gmail.com</div>
+                                <div className="text-base font-medium text-gray-800">{session.user.name}</div>
+                                <div className="text-sm font-medium text-gray-500">{session.user.email}</div>
                             </div>
                             <NotificationsPanel />
                         </div>

@@ -11,7 +11,7 @@ const sizeMap: Record<number, string> = {
     2: "text-xl md:text-3xl",
     3: "text-lg md:text-2xl",
     4: "text-md md:text-xl",
-    5: "text-sm md:text-lg font-serif",
+    5: "text-sm md:text-lg font-serif text-gray-500",
     6: "text-sm md:text-md font-serif"
 };
 

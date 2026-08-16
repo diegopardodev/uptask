@@ -36,7 +36,6 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           theme="light"
           richColors={true}
           closeButton={false}
-          visibleToasts={1}
           duration={5000}
         />
       </body>

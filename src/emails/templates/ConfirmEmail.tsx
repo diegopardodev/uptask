@@ -82,6 +82,10 @@ export const ConfirmEmail = ({ url }: ConfirmEmailProps) => (
                                     </Button>
                                 </Section>
 
+                                <Text className="text-13 text-fg-3 mx-auto mt-0 mb-8 max-w-100 text-center font-sans">
+                                    This link expires in 1 hour and can only be used once.
+                                </Text>
+
                                 <Section className="mx-auto max-w-100 text-center">
                                     <Text className="text-13 text-fg-3 m-0 text-center font-sans">
                                         Button not working? Paste this into your browser:

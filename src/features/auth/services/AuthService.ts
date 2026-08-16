@@ -21,7 +21,8 @@ class AuthService {
                 body: {
                     name,
                     email,
-                    password
+                    password,
+                    callbackURL: "/auth/sign-in"
                 },
                 headers: await headers()
             });
@@ -46,7 +47,8 @@ class AuthService {
             await auth.api.signInEmail({
                 body: {
                     email,
-                    password
+                    password,
+                    callbackURL: "/"
                 },
                 headers: await headers()
             });

@@ -12,7 +12,7 @@ export default function ForgotPasswordPage() {
         <div className="max-w-xl mx-auto w-full">
             <div className="mt-10 space-y-2">
                 <UnderlineHeading title="Reset your" highlight="password" />
-                <Heading level={5} className="text-gray-500">Enter your email and we&apos;ll send you a link to set a new one.</Heading>
+                <Heading level={5}>Enter your email and we&apos;ll send you a link to set a new one.</Heading>
             </div>
 
             <ForgotPasswordForm />

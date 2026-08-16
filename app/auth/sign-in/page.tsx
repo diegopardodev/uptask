@@ -13,7 +13,7 @@ export default async function SignInPage() {
         <div className="max-w-xl mx-auto w-full">
             <div className="mt-10 space-y-2">
                 <UnderlineHeading title="Sign in to your" highlight="account" />
-                <Heading level={5} className="text-gray-500">Pick up where your team left off.</Heading>
+                <Heading level={5}>Pick up where your team left off.</Heading>
             </div>
 
             <SignInForm />

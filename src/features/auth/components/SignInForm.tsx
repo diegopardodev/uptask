@@ -59,7 +59,7 @@ export default function SignInForm() {
 
             <FormSubmit loading={isSubmitting}>{ isSubmitting ? "Signing in…" : "Sign in" }</FormSubmit>
 
-            <p className="text-sm text-center">Don&apos;t have an account? <Link href="/auth/sign-up" className="text-primary-500 hover:underline"> sign up</Link></p>
+            <p className="text-sm text-center">Don&apos;t have an account? <Link href="/auth/sign-up" className="text-primary-500 hover:underline"> Sign up</Link></p>
         </Form>
     );
 }
