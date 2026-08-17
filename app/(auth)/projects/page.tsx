@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import EmptyState from "@/src/shared/components/ui/EmptyState";
 import Heading from "@/src/shared/components/typography/Heading";
+import UnderlineHeading from "@/src/shared/components/typography/UnderlineHeading";
 
 export const metadata: Metadata = {
     title: "Projects"
@@ -9,8 +10,8 @@ export const metadata: Metadata = {
 export default function ProjectsPage() {
     return (
         <>
-            <Heading>Projects</Heading>
-            <Heading level={5}>Every project you&apos;re a member of.</Heading>
+            <UnderlineHeading title="" highlight="Projects" />
+            <Heading level={5} className="mt-3">Every project you&apos;ve a member of.</Heading>
             <EmptyState />
         </>
     );

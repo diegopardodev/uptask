@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { redirect } from "next/navigation";
 import { Disclosure, DisclosureButton, DisclosurePanel } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
@@ -48,13 +47,11 @@ export default async function Layout({children}: LayoutProps<"/">) {
                     <div className="border-t border-gray-200 pt-4 pb-3">
                         <div className="flex items-center px-4">
                             <div className="shrink-0">
-                                <Image
-                                    alt=""
-                                    width={0}
-                                    height={0}
-                                    src="/assets/avatar.svg"
-                                    className="size-10 rounded-full bg-gray-100 outline -outline-offset-1 outline-black/5"
-                                />
+                                <span className="inline-block size-8 overflow-hidden rounded-full bg-gray-100 outline -outline-offset-1 outline-black/5">
+                                    <svg fill="currentColor" viewBox="0 0 24 24" className="size-full text-gray-300">
+                                        <path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
+                                    </svg>
+                                </span>
                             </div>
                             <div className="ml-3">
                                 <div className="text-base font-medium text-gray-800">{session.user.name}</div>

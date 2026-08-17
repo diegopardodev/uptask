@@ -20,7 +20,7 @@ export default function UnderlineHeading({ title, highlight, level, className }:
                     aria-hidden
                     width={710}
                     height={25}
-                    className="absolute -bottom-1 left-0 w-full h-auto pointer-events-none select-none"
+                    className="absolute -bottom-2 left-0 w-full h-auto pointer-events-none select-none"
                 />
             </span>
         </Heading>
