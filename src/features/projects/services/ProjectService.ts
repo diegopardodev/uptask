@@ -9,6 +9,10 @@ class ProjectService {
     async createProject(data: CreateProjectInput, userId: string) {
         await this.projectRepository.create(data, userId);
     }
+
+    async getAllProjects(userId: string) {
+        return await this.projectRepository.findAll(userId);
+    }
 }
 
 export const projectService = new ProjectService(projectRepository);

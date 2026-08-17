@@ -9,7 +9,7 @@ export const metadata: Metadata = {
     title: "New project"
 };
 
-export default function NewProjectPage() {
+export default async  function NewProjectPage() {
     return (
         <div className="max-w-3xl mx-auto w-full">
             <UnderlineHeading title="" highlight="New project"/>

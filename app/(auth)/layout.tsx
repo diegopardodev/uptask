@@ -1,4 +1,3 @@
-import { redirect } from "next/navigation";
 import { Disclosure, DisclosureButton, DisclosurePanel } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import LogoMark from "@/src/shared/components/ui/LogoMark";
@@ -7,11 +6,10 @@ import UserMenu from "@/src/shared/components/dashboard/UserMenu";
 import NotificationsPanel from "@/src/shared/components/dashboard/NotificationsPanel";
 import Navigation from "@/src/shared/components/dashboard/Navigation";
 import MobileNavigation from "@/src/shared/components/dashboard/MobileNavigation";
-import { getSession } from "@/src/shared/utils/auth-server";
+import { requireSession } from "@/src/shared/utils/auth-server";
 
 export default async function Layout({children}: LayoutProps<"/">) {
-    const session = await getSession();
-    if (!session) redirect("/auth/sign-in");
+    const session = await requireSession();
 
     return (
         <>
