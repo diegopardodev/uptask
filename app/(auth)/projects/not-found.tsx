@@ -5,8 +5,8 @@ import Logo from "@/src/shared/components/ui/Logo";
 export default function NotFound() {
     return (
         <>
-            <div className="flex h-screen flex-col bg-white pt-16 pb-12">
-                <main className="mx-auto flex w-full max-w-7xl grow flex-col justify-center px-6 lg:px-8">
+            <section className="flex min-h-[calc(100dvh-9rem)] flex-col justify-center bg-white">
+                <div className="mx-auto flex w-full max-w-7xl grow flex-col justify-center px-6 lg:px-8">
                     <div className="flex max-w-60 mx-auto shrink-0 justify-center">
                         <Logo />
                     </div>
@@ -23,8 +23,8 @@ export default function NotFound() {
                             </div>
                         </div>
                     </div>
-                </main>
-            </div>
+                </div>
+            </section>
         </>
     );
 }

@@ -57,7 +57,7 @@ export default function Loading() {
                 aria-hidden="true"
                 className="mt-6 md:mt-9 grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 lg:grid-cols-3"
             >
-                {Array.from({ length: 6 }).map((_, index) => (
+                {Array.from({ length: 9 }).map((_, index) => (
                     <ProjectCardSkeleton key={index} />
                 ))}
             </div>

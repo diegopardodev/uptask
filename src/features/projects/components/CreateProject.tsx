@@ -27,7 +27,7 @@ export default function CreateProject() {
 
     return (
         <FormProvider {...methods}>
-            <Form className="mt-10" onSubmit={methods.handleSubmit(onSubmit)}>
+            <Form onSubmit={methods.handleSubmit(onSubmit)}>
                 <CreateProjectForm />
                 <FormSubmit loading={methods.formState.isSubmitting}>{ methods.formState.isSubmitting ? "Creating project…" : "Create project" }</FormSubmit>
             </Form>

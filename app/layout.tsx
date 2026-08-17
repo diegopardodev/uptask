@@ -29,7 +29,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="en"
       className={`${rubik.variable} ${geist.variable} h-full antialiased selection:text-white selection:bg-primary-500`}
     >
-      <body className="min-h-full flex flex-col">
+      <body className="min-h-full">
         {children}
         <Toaster
           position="top-right"

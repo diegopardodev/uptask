@@ -7,12 +7,12 @@ type Props = {
 };
 
 const sizeMap: Record<number, string> = {
-    1: "text-3xl md:text-5xl font-bold",
-    2: "text-xl md:text-3xl",
+    1: "text-3xl md:text-5xl font-bold font-sans",
+    2: "text-xl md:text-3xl font-bold font-sans",
     3: "text-lg md:text-2xl",
     4: "text-md md:text-xl",
-    5: "text-sm md:text-lg font-serif text-gray-500",
-    6: "text-sm md:text-md font-serif"
+    5: "text-sm md:text-lg text-gray-500",
+    6: "text-sm md:text-md"
 };
 
 export default function Heading({ level = 1, children, className }: Props) {

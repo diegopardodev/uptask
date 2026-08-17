@@ -1,5 +1,5 @@
-import Link from "next/link";
 import { PlusIcon } from "@heroicons/react/20/solid";
+import LinkButton from "./LinkButton";
 
 export default function EmptyState() {
     return (
@@ -22,13 +22,13 @@ export default function EmptyState() {
             <h3 className="mt-2 text-sm font-semibold text-gray-900">No projects yet</h3>
             <p className="mt-1 text-sm text-gray-500">Create a project to start planning your team&apos;s work.</p>
             <div className="mt-6">
-                <Link
+                <LinkButton
                     href="/projects/new"
-                    className="inline-flex items-center rounded-md bg-primary-500 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-primary-600 hover:cursor-pointer transition-colors ease-in-out duration-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-500"
+                    className="inline-flex items-center"
                 >
                     <PlusIcon aria-hidden="true" className="mr-1.5 -ml-0.5 size-5" />
                     Create a project
-                </Link>
+                </LinkButton>
             </div>
         </div>
     );

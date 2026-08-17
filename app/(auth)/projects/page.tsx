@@ -1,5 +1,4 @@
 import { Metadata } from "next";
-import Link from "next/link";
 import { PlusIcon } from "@heroicons/react/24/outline";
 import EmptyState from "@/src/shared/components/ui/EmptyState";
 import Heading from "@/src/shared/components/typography/Heading";
@@ -7,6 +6,7 @@ import UnderlineHeading from "@/src/shared/components/typography/UnderlineHeadin
 import { requireSession } from "@/src/shared/utils/auth-server";
 import { projectService } from "@/src/features/projects/services/ProjectService";
 import ProjectCard from "@/src/features/projects/components/ProjectCard";
+import LinkButton from "@/src/shared/components/ui/LinkButton";
 
 export const metadata: Metadata = {
     title: "Projects"
@@ -15,7 +15,6 @@ export const metadata: Metadata = {
 export default async function ProjectsPage() {
     const session = await requireSession();
     const projects = await projectService.getAllProjects(session.user.id);
-    console.log(projects);
 
     return (
         <>
@@ -26,10 +25,10 @@ export default async function ProjectsPage() {
                 </div>
                 
                 {projects.length && 
-                    <Link href="/projects/new" className="bg-primary-500 hover:bg-primary-600 transition-colors ease-in-out duration-300 text-white font-semibold rounded-md py-2 px-5 flex items-center justify-center gap-2 h-fit">
+                    <LinkButton href="/projects/new" className="flex items-center gap-2">
                         <PlusIcon className="size-4" />
                         New project
-                    </Link>
+                    </LinkButton>
                 }
                 
             </div>

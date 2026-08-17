@@ -12,7 +12,7 @@ export default function UnderlineHeading({ title, highlight, level, className }:
     return (
         <Heading level={level} className={className}>
             {title}{" "}
-            <span className="relative inline-block">
+            <span className="relative inline-block max-w-full">
                 {highlight}
                 <Image
                     src="/assets/underline.svg"
@@ -20,7 +20,7 @@ export default function UnderlineHeading({ title, highlight, level, className }:
                     aria-hidden
                     width={710}
                     height={25}
-                    className="absolute -bottom-2 left-0 w-full h-auto pointer-events-none select-none"
+                    className="absolute bottom-[-0.17em] left-0 w-full h-[0.18em] pointer-events-none select-none"
                 />
             </span>
         </Heading>

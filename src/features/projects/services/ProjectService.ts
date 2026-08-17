@@ -13,6 +13,10 @@ class ProjectService {
     async getAllProjects(userId: string) {
         return await this.projectRepository.findAll(userId);
     }
+
+    async getProject(projectId: string) {
+        return await this.projectRepository.findById(projectId);
+    }
 }
 
 export const projectService = new ProjectService(projectRepository);

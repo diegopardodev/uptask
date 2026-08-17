@@ -11,8 +11,8 @@ export default function ProjectCard({project}: Props) {
     return (
         <div className="rounded-md border border-gray-200 w-full p-5 flex flex-col justify-between min-h-50">
             <div className="space-y-1">
-                <span className="uppercase text-xs text-gray-500">{project.client}</span>
-                <Link href="#" className="font-semibold hover:underline block">{project.name}</Link>
+                <span className="uppercase text-xs text-gray-500 font-medium tracking-wider">{project.client}</span>
+                <Link href={`/projects/${project.id}`} className="font-medium hover:underline block font-sans">{project.name}</Link>
             </div>
 
             <p className="text-gray-500 text-sm">{project.description}</p>
@@ -25,6 +25,8 @@ export default function ProjectCard({project}: Props) {
                 </div>
 
                 <p className="text-gray-500 text-sm">{formatCreatedDate(project.createdAt!)}</p>
+
+                {/* TODO: Add loading bar based on tasks remaining */}
             </div>
         </div>
     );
