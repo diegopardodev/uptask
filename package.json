@@ -9,7 +9,9 @@
     "typecheck": "tsc --noEmit",
     "lint": "eslint",
     "lint:fix": "eslint --fix",
-    "preinstall": "npx only-allow pnpm"
+    "preinstall": "npx only-allow pnpm",
+    "generate": "pnpm exec drizzle-kit generate",
+    "migrate": "pnpm exec drizzle-kit migrate"
   },
   "dependencies": {
     "@headlessui/react": "^2.2.10",

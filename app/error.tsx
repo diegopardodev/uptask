@@ -3,6 +3,7 @@
 import Link from "next/link";
 import UnderlineHeading from "@/src/shared/components/typography/UnderlineHeading";
 import Logo from "@/src/shared/components/ui/Logo";
+import { ArrowRightIcon } from "@heroicons/react/24/outline";
 
 export default function Error() {
     return (
@@ -18,9 +19,9 @@ export default function Error() {
                             <UnderlineHeading title="There was an" highlight="error." />
                             <p className="mt-2 text-base text-gray-500">Sorry, something went wrong.</p>
                             <div className="mt-6">
-                                <Link href="/" className="text-base font-medium text-primary-500">
+                                <Link href="/" className="text-base font-medium text-primary-500 flex items-center justify-center gap-3">
                                     Go back home
-                                    <span aria-hidden="true"> &rarr;</span>
+                                    <span aria-hidden="true"> <ArrowRightIcon className="size-4 text-primary-500"/></span>
                                 </Link>
                             </div>
                         </div>
