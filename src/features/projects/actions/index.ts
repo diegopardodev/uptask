@@ -1,6 +1,5 @@
 "use server";
 
-import { redirect } from "next/navigation";
 import { actionError, actionOk } from "@/src/shared/types/result";
 import { CreateProjectInput, CreateProjectSchema } from "../schemas";
 import { projectService } from "../services/ProjectService";

@@ -5,7 +5,7 @@ import { formatCreatedDate } from "@/src/shared/utils/date";
 
 type Props = {
     project: SelectProject;
-}
+};
 
 export default function ProjectCard({project}: Props) {
     return (

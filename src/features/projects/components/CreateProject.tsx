@@ -23,7 +23,7 @@ export default function CreateProject() {
 
         toast.success(response.message);
         router.push("/projects");
-    }
+    };
 
     return (
         <FormProvider {...methods}>
