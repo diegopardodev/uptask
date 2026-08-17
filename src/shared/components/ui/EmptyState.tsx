@@ -9,7 +9,7 @@ export default function EmptyState() {
                 stroke="currentColor"
                 viewBox="0 0 24 24"
                 aria-hidden="true"
-                className="mx-auto size-12 text-gray-400 dark:text-gray-500"
+                className="mx-auto size-10 text-gray-400 dark:text-gray-500"
             >
                 <path
                     d="M9 13h6m-3-3v6m-9 1V7a2 2 0 012-2h6l2 2h6a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2z"
