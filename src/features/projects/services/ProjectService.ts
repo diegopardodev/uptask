@@ -14,8 +14,8 @@ class ProjectService {
         return await this.projectRepository.findAll(userId);
     }
 
-    async getProject(projectId: string) {
-        return await this.projectRepository.findById(projectId);
+    async getProject(userId: string, projectId: string) {
+        return await this.projectRepository.findById(userId, projectId);
     }
 
     async editProject(data: ProjectInput, userId: string, projectId: string) {

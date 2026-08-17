@@ -37,7 +37,7 @@ export default function EditProject({project}: Props) {
 
     return (
         <FormProvider {...methods}>
-            <Form onSubmit={methods.handleSubmit(onSubmit)}>
+            <Form onSubmit={methods.handleSubmit(onSubmit)} aria-live={methods.formState.isSubmitting ? "polite" : "off"}>
                 <EditProjectForm />
                 <FormSubmit loading={methods.formState.isSubmitting}>{ methods.formState.isSubmitting ? "Saving changes…" : "Save changes" }</FormSubmit>
             </Form>

@@ -7,10 +7,12 @@ import UnderlineHeading from "@/src/shared/components/typography/UnderlineHeadin
 import Breadcrums from "@/src/shared/components/ui/Breadcrums";
 import LinkButton from "@/src/shared/components/ui/LinkButton";
 import DropdownMenu from "@/src/features/projects/components/DropdownMenu";
+import { requireSession } from "@/src/shared/utils/auth-server";
 
 export async function generateMetadata(props: PageProps<"/projects/[id]">): Promise<Metadata> {
+    const session = await requireSession();
     const {id} = await props.params;
-    const project = await projectService.getProject(id);
+    const project = await projectService.getProject(session.user.id, id);
     if (!project) notFound();
 
     return {
@@ -19,8 +21,9 @@ export async function generateMetadata(props: PageProps<"/projects/[id]">): Prom
 }
 
 export default async function ProjectDetailPage(props: PageProps<"/projects/[id]">) {
+    const session = await requireSession();
     const { id } = await props.params;
-    const project = await projectService.getProject(id);
+    const project = await projectService.getProject(session.user.id, id);
     if (!project) notFound();
 
     return (

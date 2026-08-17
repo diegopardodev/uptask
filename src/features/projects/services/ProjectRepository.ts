@@ -7,7 +7,7 @@ import { SelectProject } from "../types";
 export interface IProjectRepository {
     create(data: ProjectInput, userId: string): Promise<void>;
     findAll(userId: string): Promise<SelectProject[]>;
-    findById(projectId: string): Promise<SelectProject>;
+    findById(userId: string, projectId: string): Promise<SelectProject>;
     update(data: ProjectInput, userId: string, projectId: string): Promise<void>;
     delete(userId: string, projectId: string): Promise<void>;
 }
@@ -24,8 +24,8 @@ class ProjectRepository implements IProjectRepository {
         return await db.select().from(projects).where(eq(projects.createdBy, userId));
     }
 
-    async findById(projectId: string): Promise<SelectProject> {
-        const [result] = await db.select().from(projects).where(eq(projects.id, projectId));
+    async findById(userId: string, projectId: string): Promise<SelectProject> {
+        const [result] = await db.select().from(projects).where(and(eq(projects.id, projectId), eq(projects.createdBy, userId)));
         return result;
     }
 

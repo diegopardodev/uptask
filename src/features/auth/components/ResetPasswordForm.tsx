@@ -28,7 +28,7 @@ export default function SetNewPassword() {
     };
 
     return (
-        <Form className="mt-10" onSubmit={handleSubmit(onSubmit)}>
+        <Form className="mt-10" onSubmit={handleSubmit(onSubmit)} aria-live={isSubmitting ? "polite" : "off"}>
             <div className="space-y-2">
                 <FormLabel htmlFor="password">New password</FormLabel>
                 <FormInput

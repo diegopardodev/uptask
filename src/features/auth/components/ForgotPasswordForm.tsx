@@ -27,7 +27,7 @@ export default function ForgotPasswordForm() {
     };
 
     return (
-        <Form className="mt-10" onSubmit={handleSubmit(onSubmit)}>
+        <Form className="mt-10" onSubmit={handleSubmit(onSubmit)} aria-live={isSubmitting ? "polite" : "off"}>
             <div className="space-y-2">
                 <FormLabel htmlFor="email">Email</FormLabel>
                 <FormInput

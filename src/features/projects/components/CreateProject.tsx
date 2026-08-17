@@ -27,7 +27,7 @@ export default function CreateProject() {
 
     return (
         <FormProvider {...methods}>
-            <Form onSubmit={methods.handleSubmit(onSubmit)}>
+            <Form onSubmit={methods.handleSubmit(onSubmit)} aria-live={methods.formState.isSubmitting ? "polite" : "off"}>
                 <CreateProjectForm />
                 <FormSubmit loading={methods.formState.isSubmitting}>{ methods.formState.isSubmitting ? "Creating project…" : "Create project" }</FormSubmit>
             </Form>
