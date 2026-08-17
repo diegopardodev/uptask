@@ -6,10 +6,10 @@ const BaseSchema = z.object({
     description: z.string().trim().max(500, { error: "The description can't be longer than 500 characters" }).optional()
 });
 
-export const CreateProjectSchema = BaseSchema.pick({
+export const ProjectSchema = BaseSchema.pick({
     name: true,
     client: true,
     description: true
 });
 
-export type CreateProjectInput = z.infer<typeof CreateProjectSchema>;
+export type ProjectInput = z.infer<typeof ProjectSchema>;

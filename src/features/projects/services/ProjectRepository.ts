@@ -1,17 +1,18 @@
-import { eq } from "drizzle-orm";
+import { and, eq } from "drizzle-orm";
 import { db } from "@/src/db";
-import { CreateProjectInput } from "../schemas";
+import { ProjectInput } from "../schemas";
 import { projects } from "@/src/db/schema/projects";
 import { SelectProject } from "../types";
 
 export interface IProjectRepository {
-    create(data: CreateProjectInput, userId: string): Promise<void>;
+    create(data: ProjectInput, userId: string): Promise<void>;
     findAll(userId: string): Promise<SelectProject[]>;
     findById(projectId: string): Promise<SelectProject>;
+    update(data: ProjectInput, userId: string, projectId: string): Promise<void>;
 }
 
 class ProjectRepository implements IProjectRepository {
-    async create(data: CreateProjectInput, userId: string): Promise<void> {
+    async create(data: ProjectInput, userId: string): Promise<void> {
         await db.insert(projects).values({
             ...data,
             createdBy: userId
@@ -25,6 +26,10 @@ class ProjectRepository implements IProjectRepository {
     async findById(projectId: string): Promise<SelectProject> {
         const [result] = await db.select().from(projects).where(eq(projects.id, projectId));
         return result;
+    }
+
+    async update(data: ProjectInput, userId: string, projectId: string): Promise<void> {
+        await db.update(projects).set(data).where(and(eq(projects.createdBy, userId), eq(projects.id, projectId)));
     }
 }
 

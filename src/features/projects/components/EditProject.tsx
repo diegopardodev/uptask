@@ -5,20 +5,30 @@ import { useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
 import { Form, FormSubmit } from "@/src/shared/components/forms";
-import CreateProjectForm from "./CreateProjectForm";
 import { ProjectInput, ProjectSchema } from "../schemas";
-import { createProjectAction } from "../actions";
+import { createProjectAction, editProjectAction } from "../actions";
+import { SelectProject } from "../types";
+import EditProjectForm from "./EditProjectForm";
 
-export default function CreateProject() {
+type Props = {
+    project: SelectProject;
+}
+
+export default function EditProject({project}: Props) {
     const router = useRouter();
 
     const methods = useForm({
         resolver: zodResolver(ProjectSchema),
-        mode: "all"
+        mode: "all",
+        defaultValues: {
+            name: project.name,
+            client: project.client,
+            description: project.description ?? ""
+        }
     });
 
     const onSubmit = async (data: ProjectInput) => {
-        const response = await createProjectAction(data);
+        const response = await editProjectAction(data, project.id);
         if (!response.ok) return toast.error(response.error);
 
         toast.success(response.message);
@@ -28,8 +38,8 @@ export default function CreateProject() {
     return (
         <FormProvider {...methods}>
             <Form onSubmit={methods.handleSubmit(onSubmit)}>
-                <CreateProjectForm />
-                <FormSubmit loading={methods.formState.isSubmitting}>{ methods.formState.isSubmitting ? "Creating project…" : "Create project" }</FormSubmit>
+                <EditProjectForm />
+                <FormSubmit loading={methods.formState.isSubmitting}>{ methods.formState.isSubmitting ? "Saving changes…" : "Save changes" }</FormSubmit>
             </Form>
         </FormProvider>
     );

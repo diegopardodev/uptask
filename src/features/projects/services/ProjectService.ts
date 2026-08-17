@@ -1,4 +1,4 @@
-import { CreateProjectInput } from "../schemas";
+import { ProjectInput } from "../schemas";
 import { IProjectRepository, projectRepository } from "./ProjectRepository";
 
 class ProjectService {
@@ -6,7 +6,7 @@ class ProjectService {
         private readonly projectRepository: IProjectRepository
     ) {}
 
-    async createProject(data: CreateProjectInput, userId: string) {
+    async createProject(data: ProjectInput, userId: string) {
         await this.projectRepository.create(data, userId);
     }
 
@@ -16,6 +16,10 @@ class ProjectService {
 
     async getProject(projectId: string) {
         return await this.projectRepository.findById(projectId);
+    }
+
+    async editProject(data: ProjectInput, userId: string, projectId: string) {
+        await this.projectRepository.update(data, userId, projectId);
     }
 }
 

@@ -2,7 +2,7 @@ import { useFormContext } from "react-hook-form";
 import { FormError, FormInput, FormLabel, FormTextarea } from "@/src/shared/components/forms";
 import { ProjectInput } from "../schemas";
 
-export default function CreateProjectForm() {
+export default function EditProjectForm() {
     const { register, formState: { errors } } = useFormContext<ProjectInput>();
 
     return (
