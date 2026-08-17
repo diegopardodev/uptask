@@ -38,7 +38,7 @@ export default async function ProjectDetailPage(props: PageProps<"/projects/[id]
                         <PencilIcon className="text-primary-500 size-4" />
                         Edit project
                     </LinkButton>
-                    <DropdownMenu />
+                    <DropdownMenu project={project} />
                 </div>
             </div>
         </>

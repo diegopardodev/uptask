@@ -6,15 +6,15 @@ type Store = {
     setOpen: (open: boolean) => void;
     project: SelectProject | null;
     setProject: (project: SelectProject | null) => void;
-}
+};
 
 export const useProjectStore = create<Store>((set) => ({
     open: false,
     setOpen: (open) => {
-        set({ open })
+        set({ open });
     },
     project: null,
     setProject: (project) => {
-        set({project})
+        set({project});
     }
 }));
