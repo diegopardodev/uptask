@@ -9,6 +9,7 @@ export interface IProjectRepository {
     findAll(userId: string): Promise<SelectProject[]>;
     findById(projectId: string): Promise<SelectProject>;
     update(data: ProjectInput, userId: string, projectId: string): Promise<void>;
+    delete(userId: string, projectId: string): Promise<void>;
 }
 
 class ProjectRepository implements IProjectRepository {
@@ -29,7 +30,11 @@ class ProjectRepository implements IProjectRepository {
     }
 
     async update(data: ProjectInput, userId: string, projectId: string): Promise<void> {
-        await db.update(projects).set(data).where(and(eq(projects.createdBy, userId), eq(projects.id, projectId)));
+        await db.update(projects).set(data).where(and(eq(projects.id, projectId), eq(projects.createdBy, userId)));
+    }
+
+    async delete(userId: string, projectId: string): Promise<void> {
+        await db.delete(projects).where(and(eq(projects.id, projectId), eq(projects.createdBy, userId)));
     }
 }
 

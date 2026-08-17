@@ -21,6 +21,10 @@ class ProjectService {
     async editProject(data: ProjectInput, userId: string, projectId: string) {
         await this.projectRepository.update(data, userId, projectId);
     }
+
+    async deleteProject(userId: string, projectId: string) {
+        await this.projectRepository.delete(userId, projectId);
+    }
 }
 
 export const projectService = new ProjectService(projectRepository);

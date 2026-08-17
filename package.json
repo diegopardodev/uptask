@@ -31,7 +31,8 @@
     "react-email": "^6.9.2",
     "react-hook-form": "^7.85.0",
     "sonner": "^2.0.8",
-    "zod": "^4.4.3"
+    "zod": "^4.4.3",
+    "zustand": "^5.0.15"
   },
   "devDependencies": {
     "@stylistic/eslint-plugin": "^5.10.0",

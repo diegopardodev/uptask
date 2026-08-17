@@ -24,7 +24,7 @@ export default async function ProjectsPage() {
                     <Heading level={5} className="mt-3">Every project you&apos;ve a member of.</Heading>
                 </div>
                 
-                {projects.length && 
+                {projects.length > 0 && 
                     <LinkButton href="/projects/new" className="flex items-center gap-2">
                         <PlusIcon className="size-4" />
                         New project
