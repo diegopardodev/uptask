@@ -6,7 +6,7 @@ type Props = TextareaHTMLAttributes<HTMLTextAreaElement> & {
     error: boolean;
 };
 
-export default function FormTextarea({ className, error, ...props }: Props) {
+export function FormTextarea({ className, error, ...props }: Props) {
     return (
         <div className="grid grid-cols-1">
             <textarea

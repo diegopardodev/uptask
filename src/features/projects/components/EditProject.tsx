@@ -6,13 +6,13 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
 import { Form, FormSubmit } from "@/src/shared/components/forms";
 import { ProjectInput, ProjectSchema } from "../schemas";
-import { createProjectAction, editProjectAction } from "../actions";
+import { editProjectAction } from "../actions";
 import { SelectProject } from "../types";
 import EditProjectForm from "./EditProjectForm";
 
 type Props = {
     project: SelectProject;
-}
+};
 
 export default function EditProject({project}: Props) {
     const router = useRouter();

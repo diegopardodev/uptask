@@ -2,7 +2,7 @@ type Props = {
     children: React.ReactNode;
 };
 
-export default function FormError({ children }: Props) {
+export function FormError({ children }: Props) {
     return (
         <p className="mt-2 text-sm text-red-600">
             {children}

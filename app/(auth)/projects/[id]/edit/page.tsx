@@ -14,7 +14,7 @@ export async function generateMetadata(props: PageProps<"/projects/[id]/edit">):
 
     return {
         title: `Edit ${project.name} project`,
-    }
+    };
 }
 
 export default async function EditProjectPage(props: PageProps<"/projects/[id]/edit">) {

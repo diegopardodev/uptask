@@ -6,7 +6,7 @@ type Props = InputHTMLAttributes<HTMLInputElement> & {
     error: boolean;
 };
 
-export default function FormInput({ className, error, ...props }: Props) {
+export function FormInput({ className, error, ...props }: Props) {
     return (
         <div className="grid grid-cols-1">
             <input

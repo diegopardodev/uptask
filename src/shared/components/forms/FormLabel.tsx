@@ -3,7 +3,7 @@ import { LabelHTMLAttributes } from "react";
 
 type Props = LabelHTMLAttributes<HTMLLabelElement>;
 
-export default function FormLabel(props: Props) {
+export function FormLabel(props: Props) {
     const { children, className } = props;
 
     return (

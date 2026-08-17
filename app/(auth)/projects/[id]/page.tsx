@@ -15,7 +15,7 @@ export async function generateMetadata(props: PageProps<"/projects/[id]">): Prom
 
     return {
         title: `${project.name} project`,
-    }
+    };
 }
 
 export default async function ProjectDetailPage(props: PageProps<"/projects/[id]">) {
