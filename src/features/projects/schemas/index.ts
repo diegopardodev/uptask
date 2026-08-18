@@ -16,4 +16,8 @@ export const ProjectSchema = BaseSchema.pick({
     description: true
 });
 
+export const ProjectsSearchParamsSchema = z.object({
+    page: z.coerce.number().int().positive().catch(1)
+});
+
 export type ProjectInput = z.infer<typeof ProjectSchema>;
