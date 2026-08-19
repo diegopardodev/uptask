@@ -5,8 +5,14 @@ import Button from "@/src/shared/components/ui/Button";
 import { useTaskStore } from "../store";
 import CreateTaskDialog from "./CreateTaskDialog";
 
-export default function Tasks() {
+type Props = {
+    canAddTask: boolean;
+};
+
+export default function Tasks({canAddTask}: Props) {
     const { setOpen } = useTaskStore();
+
+    if (!canAddTask) return null;
 
     return (
         <div className="mt-5">

@@ -35,6 +35,7 @@ export async function generateMetadata(props: PageProps<"/projects/[id]">): Prom
 
 export default async function ProjectDetailPage(props: PageProps<"/projects/[id]">) {
     const { id } = await props.params;
+    const session = await requireSession();
     const project = await getProjectForCurrentUser(id);
 
     const { tab } = ProjectTabSearchParamsSchema.parse(await props.searchParams);
@@ -51,7 +52,7 @@ export default async function ProjectDetailPage(props: PageProps<"/projects/[id]
                     }
                 </div>
 
-                {tab === "overview" &&
+                {tab === "overview" && ProjectPolicy.canEdit(session.user, project) &&
                     <div className="mt-5 md:mt-0 flex items-center gap-3 w-full md:w-fit">
                         <LinkButton type="outline" href={`/projects/${project.id}/edit`} className="w-full md:w-fit text-center flex items-center gap-2 justify-center">
                             <PencilIcon className="text-primary-500 size-4" />
@@ -65,7 +66,7 @@ export default async function ProjectDetailPage(props: PageProps<"/projects/[id]
             <Tabs tabs={[{ name: "Overview", value: "overview" }, { name: "Tasks", value: "tasks" }, { name: "Team", value: "team" }]} />
 
             {tab === "overview" && <Overview project={project} />}
-            {tab === "tasks" && <Task />}  
+            {tab === "tasks" && <Task canAddTask={ProjectPolicy.canAddTask(session.user, project)} />}
             {tab === "team" && <p>team</p>}  
         </>
     );
