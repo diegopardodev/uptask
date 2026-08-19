@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { redirect, useSearchParams } from "next/navigation";
+import { redirect } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
@@ -9,11 +9,11 @@ import { Form, FormError, FormInput, FormLabel, FormSubmit } from "@/src/shared/
 import { ResetPasswordInput, ResetPasswordSchema } from "../schemas";
 import { resetPasswordAction } from "../actions";
 
-export default function SetNewPassword() {
-    const params = useSearchParams();
-    const token = params.get("token");
-    if (!token) redirect("/auth/sign-in");
+type Props = {
+    token: string;
+};
 
+export default function SetNewPassword({token}: Props) {
     const { register, handleSubmit, formState: { errors, isSubmitting }, reset } = useForm({
         resolver: zodResolver(ResetPasswordSchema),
         mode: "all"

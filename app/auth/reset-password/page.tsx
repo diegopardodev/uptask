@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import { redirect } from "next/navigation";
 import ResetPasswordForm from "@/src/features/auth/components/ResetPasswordForm";
 import UnderlineHeading from "@/src/shared/components/typography/UnderlineHeading";
 import Heading from "@/src/shared/components/typography/Heading";
@@ -7,7 +8,11 @@ export const metadata: Metadata = {
     title: "Set a new password",
 };
 
-export default function Page() {
+export default async function ResetPasswordPage(props: PageProps<"/auth/reset-password">) {
+    const { token } = await props.searchParams;
+
+    if (typeof token !== "string" || !token) redirect("/auth/sign-in");
+
     return (
         <div className="max-w-xl mx-auto w-full">
             <div className="mt-10 space-y-2">
@@ -15,7 +20,7 @@ export default function Page() {
                 <Heading level={5}>Choose a password you haven&apos;t used on UpTask before.</Heading>
             </div>
 
-            <ResetPasswordForm />
+            <ResetPasswordForm token={token} />
         </div>
     );
 }
