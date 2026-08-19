@@ -14,7 +14,7 @@ export default function SetNewPassword() {
     const token = params.get("token");
     if (!token) redirect("/auth/sign-in");
 
-    const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm({
+    const { register, handleSubmit, formState: { errors, isSubmitting }, reset } = useForm({
         resolver: zodResolver(ResetPasswordSchema),
         mode: "all"
     });
@@ -23,6 +23,7 @@ export default function SetNewPassword() {
         const response = await resetPasswordAction(data, token);
         if (!response.ok) return toast.error(response.error);
 
+        reset();
         toast.success(response.message);
         redirect("/auth/sign-in");
     };

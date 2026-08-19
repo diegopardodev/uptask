@@ -1,3 +1,4 @@
+import { useParams } from "next/navigation";
 import { useForm, FormProvider } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { XMarkIcon } from "@heroicons/react/20/solid";
@@ -7,7 +8,6 @@ import { Form, FormSubmit } from "@/src/shared/components/forms";
 import CreateTaskForm from "./CreateTaskForm";
 import { useTaskStore } from "../store";
 import { createTaskAction } from "../actions";
-import { useParams } from "next/navigation";
 
 export default function CreateTask() {
     const { setOpen } = useTaskStore();

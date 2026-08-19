@@ -1,5 +1,5 @@
-import { db } from "@/src/db";
 import { User } from "better-auth";
+import { db } from "@/src/db";
 
 export interface IAuthRepository {
     findByEmail(email: string): Promise<User | undefined>;

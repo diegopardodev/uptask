@@ -1,7 +1,9 @@
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { cache } from "react";
 import { PencilIcon } from "@heroicons/react/24/outline";
 import { projectService } from "@/src/features/projects/services/ProjectService";
+import { ProjectPolicy } from "@/src/features/projects/policies/ProjectPolicy";
 import Heading from "@/src/shared/components/typography/Heading";
 import UnderlineHeading from "@/src/shared/components/typography/UnderlineHeading";
 import Breadcrums from "@/src/shared/components/ui/Breadcrums";
@@ -13,11 +15,18 @@ import { ProjectTabSearchParamsSchema } from "@/src/features/projects/schemas";
 import Overview from "@/src/features/projects/components/Overview";
 import Task from "@/src/features/task/components/Task";
 
-export async function generateMetadata(props: PageProps<"/projects/[id]">): Promise<Metadata> {
+const getProjectForCurrentUser = cache(async (projectId: string) => {
     const session = await requireSession();
-    const {id} = await props.params;
-    const project = await projectService.getProject(session.user.id, id);
-    if (!project) notFound();
+    const project = await projectService.getProject(projectId);
+
+    if (!project || !ProjectPolicy.canView(session.user, project)) notFound();
+
+    return project;
+});
+
+export async function generateMetadata(props: PageProps<"/projects/[id]">): Promise<Metadata> {
+    const { id } = await props.params;
+    const project = await getProjectForCurrentUser(id);
 
     return {
         title: `${project.name} project`,
@@ -25,10 +34,8 @@ export async function generateMetadata(props: PageProps<"/projects/[id]">): Prom
 }
 
 export default async function ProjectDetailPage(props: PageProps<"/projects/[id]">) {
-    const session = await requireSession();
     const { id } = await props.params;
-    const project = await projectService.getProject(session.user.id, id);
-    if (!project) notFound();
+    const project = await getProjectForCurrentUser(id);
 
     const { tab } = ProjectTabSearchParamsSchema.parse(await props.searchParams);
 

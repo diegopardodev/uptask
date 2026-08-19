@@ -17,13 +17,10 @@ export default function ForgotPasswordForm() {
     const onSubmit = async (data: ForgotPasswordInput) => {
         const response = await forgotPasswordAction(data);
 
-        if (!response.ok) {
-            toast.error(response.error);
-            return;
-        }
+        if (!response.ok) return toast.error(response.error);
 
-        toast.success(response.message);
         reset();
+        toast.success(response.message);
     };
 
     return (

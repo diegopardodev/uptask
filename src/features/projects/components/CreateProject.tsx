@@ -21,6 +21,7 @@ export default function CreateProject() {
         const response = await createProjectAction(data);
         if (!response.ok) return toast.error(response.error);
 
+        methods.reset();
         toast.success(response.message);
         router.push("/projects");
     };

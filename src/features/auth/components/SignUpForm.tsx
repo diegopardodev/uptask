@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
@@ -9,7 +10,8 @@ import { SignUpInput, SignUpSchema } from "../schemas";
 import { signUpAction } from "../actions";
 
 export default function SignUpForm() {
-    const { register, handleSubmit, formState: { errors, isSubmitting }, reset } = useForm({
+    const router = useRouter();
+    const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm({
         resolver: zodResolver(SignUpSchema),
         mode: "all"
     });
@@ -22,8 +24,7 @@ export default function SignUpForm() {
             return;
         }
 
-        toast.success(response.message);
-        reset();
+        router.replace("/auth/sign-up/success");
     };
 
     return (

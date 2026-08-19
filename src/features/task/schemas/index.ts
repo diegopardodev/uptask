@@ -1,5 +1,5 @@
-import { taskStatus } from "@/src/db/schema";
 import z from "zod";
+import { taskStatus } from "@/src/db/schema";
 
 const BaseSchema = z.object({
     name: z.string().trim().min(1, { error: "Enter a task name" }).max(100, { error: "The project name can't be longer than 100 characters" }),

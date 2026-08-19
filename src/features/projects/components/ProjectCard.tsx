@@ -2,15 +2,14 @@ import Link from "next/link";
 import { CheckCircleIcon } from "@heroicons/react/24/outline";
 import { SelectProject } from "../types";
 import { formatCreatedDate } from "@/src/shared/utils/date";
-import { requireSession } from "@/src/shared/utils/auth-server";
 import Badge from "./Badge";
 
 type Props = {
     project: SelectProject;
+    userId: string;
 };
 
-export default async function ProjectCard({project}: Props) {
-    const session = await requireSession();
+export default async function ProjectCard({project, userId}: Props) {
 
     return (
         <div className="rounded-md border border-gray-200 w-full p-5 flex flex-col justify-between min-h-50 hover:scale-101 transition-transform ease-in-out duration-300">
@@ -19,7 +18,7 @@ export default async function ProjectCard({project}: Props) {
                     <span className="uppercase text-xs text-gray-500 font-medium tracking-wider">{project.client}</span>
                     <Link href={`/projects/${project.id}`} className="font-medium hover:underline block font-sans">{project.name}</Link>
                 </div>
-                {project.createdBy === session.user.id ? <Badge>Manager</Badge> : <Badge>Collaborator</Badge>}
+                {project.createdBy === userId ? <Badge>Manager</Badge> : <Badge>Collaborator</Badge>}
             </div>
 
             <p className="text-gray-500 text-sm line-clamp-2">{project.description}</p>

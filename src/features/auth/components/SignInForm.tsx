@@ -10,7 +10,7 @@ import { SignInInput, SignInSchema } from "../schemas";
 import { signInAction } from "../actions";
 
 export default function SignInForm() {
-    const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm({
+    const { register, handleSubmit, formState: { errors, isSubmitting }, reset } = useForm({
         resolver: zodResolver(SignInSchema),
         mode: "all"
     });
@@ -18,11 +18,9 @@ export default function SignInForm() {
     const onSubmit = async (data: SignInInput) => {
         const response = await signInAction(data);
 
-        if (!response.ok) {
-            toast.error(response.error);
-            return;
-        }
+        if (!response.ok) return toast.error(response.error);
 
+        reset();
         redirect("/");
     };
 

@@ -4,13 +4,22 @@ import { getSession } from "@/src/shared/utils/auth-server";
 
 export async function POST(request: Request) {
     const session = await getSession();
-    if (!session) return new Response(JSON.stringify([]), { status: 401 });
+    if (!session) return Response.json({ error: "Unauthorized" }, { status: 401 });
 
-    const body = await request.json();
+    let body: unknown;
+
+    try {
+        body = await request.json();
+    } catch {
+        return Response.json({ error: "Invalid JSON body" }, { status: 400 });
+    }
+
     const data = ProjectIdSchema.safeParse(body);
 
     if (!data.success) return Response.json({ errors: data.error.issues }, { status: 400 });
 
-    await projectService.deleteProject(session.user.id, data.data.id);
+    const deleted = await projectService.deleteProject(session.user.id, data.data.id);
+    if (!deleted) return Response.json({ error: "Project not found" }, { status: 404 });
+
     return Response.json({ ok: true }, { status: 200 });
 }

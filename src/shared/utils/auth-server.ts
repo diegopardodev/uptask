@@ -1,6 +1,6 @@
 import { headers } from "next/headers";
-import { auth } from "@/src/lib/auth";
 import { redirect } from "next/navigation";
+import { auth } from "@/src/lib/auth";
 
 export async function getSession() {
     return await auth.api.getSession({

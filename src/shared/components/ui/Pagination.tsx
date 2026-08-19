@@ -28,7 +28,7 @@ export default function Pagination({currentPage, totalPages}: Props) {
 
     return (
         <nav aria-label="Pagination" className="mt-10 flex items-center justify-center gap-1">
-            { totalPages > 1 && (
+            { currentPage > 1 && (
                 <Link href={buildHref(currentPage - 1)}>
                     <ChevronLeftIcon className="size-4" />
                 </Link>

@@ -40,7 +40,7 @@ export default async function ProjectsPage(props: PageProps<"/projects">) {
                 <>
                     <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-10 mt-10">
                         {projects.map(project => (
-                            <ProjectCard key={project.id} project={project} />
+                            <ProjectCard key={project.id} project={project} userId={session.user.id} />
                         ))}
                     </section>
                     <Pagination currentPage={currentPage} totalPages={totalPages} />

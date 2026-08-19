@@ -17,7 +17,7 @@ class ProjectService {
         const total = await this.projectRepository.countAll(userId);
         const totalPages = Math.max(1, Math.ceil(total / PROJECTS_PER_PAGE));
         const currentPage = Math.min(page, totalPages);
-        const offset = (page - 1) * PROJECTS_PER_PAGE;
+        const offset = (currentPage - 1) * PROJECTS_PER_PAGE;
         const items = await this.projectRepository.findAll(userId, PROJECTS_PER_PAGE, offset);
 
         return {
@@ -28,16 +28,16 @@ class ProjectService {
         };
     }
 
-    async getProject(userId: string, projectId: string) {
-        return await this.projectRepository.findById(userId, projectId);
+    async getProject(projectId: string) {
+        return await this.projectRepository.findById(projectId);
     }
 
     async editProject(data: ProjectInput, userId: string, projectId: string) {
         await this.projectRepository.update(data, userId, projectId);
     }
 
-    async deleteProject(userId: string, projectId: string) {
-        await this.projectRepository.delete(userId, projectId);
+    async deleteProject(userId: string, projectId: string): Promise<boolean> {
+        return await this.projectRepository.delete(userId, projectId);
     }
 }
 

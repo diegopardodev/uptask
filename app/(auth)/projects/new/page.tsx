@@ -1,7 +1,7 @@
 import { Metadata } from "next";
+import { ArrowLeftIcon } from "@heroicons/react/24/outline";
 import Heading from "@/src/shared/components/typography/Heading";
 import UnderlineHeading from "@/src/shared/components/typography/UnderlineHeading";
-import { ArrowLeftIcon } from "@heroicons/react/24/outline";
 import CreateProject from "@/src/features/projects/components/CreateProject";
 import LinkButton from "@/src/shared/components/ui/LinkButton";
 

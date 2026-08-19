@@ -1,18 +1,27 @@
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { cache } from "react";
 import { ArrowLeftIcon } from "@heroicons/react/16/solid";
 import EditProject from "@/src/features/projects/components/EditProject";
 import { projectService } from "@/src/features/projects/services/ProjectService";
+import { ProjectPolicy } from "@/src/features/projects/policies/ProjectPolicy";
 import Heading from "@/src/shared/components/typography/Heading";
 import UnderlineHeading from "@/src/shared/components/typography/UnderlineHeading";
 import LinkButton from "@/src/shared/components/ui/LinkButton";
 import { requireSession } from "@/src/shared/utils/auth-server";
 
-export async function generateMetadata(props: PageProps<"/projects/[id]/edit">): Promise<Metadata> {
+const getProjectForCurrentUser = cache(async (projectId: string) => {
     const session = await requireSession();
+    const project = await projectService.getProject(projectId);
+
+    if (!project || !ProjectPolicy.canEdit(session.user, project)) notFound();
+
+    return project;
+});
+
+export async function generateMetadata(props: PageProps<"/projects/[id]/edit">): Promise<Metadata> {
     const { id } = await props.params;
-    const project = await projectService.getProject(session.user.id, id);
-    if (!project) notFound();
+    const project = await getProjectForCurrentUser(id);
 
     return {
         title: `Edit ${project.name} project`,
@@ -20,10 +29,8 @@ export async function generateMetadata(props: PageProps<"/projects/[id]/edit">):
 }
 
 export default async function EditProjectPage(props: PageProps<"/projects/[id]/edit">) {
-    const session = await requireSession();
     const { id } = await props.params;
-    const project = await projectService.getProject(session.user.id, id);
-    if (!project) notFound();
+    const project = await getProjectForCurrentUser(id);
 
     return (
         <div className="max-w-3xl mx-auto w-full">

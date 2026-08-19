@@ -7,9 +7,9 @@ import { SelectProject, SelectProjectWithManager } from "../types";
 export interface IProjectRepository {
     create(data: ProjectInput, userId: string): Promise<void>;
     findAll(userId: string, limit: number, offset: number): Promise<SelectProject[]>;
-    findById(userId: string, projectId: string): Promise<SelectProjectWithManager | undefined>;
+    findById(projectId: string): Promise<SelectProjectWithManager | undefined>;
     update(data: ProjectInput, userId: string, projectId: string): Promise<void>;
-    delete(userId: string, projectId: string): Promise<void>;
+    delete(userId: string, projectId: string): Promise<boolean>;
     countAll(userId: string): Promise<number>;
 }
 
@@ -30,12 +30,11 @@ class ProjectRepository implements IProjectRepository {
         return total.total;
     }
 
-    async findById(userId: string, projectId: string): Promise<SelectProjectWithManager | undefined> {
+    async findById(projectId: string): Promise<SelectProjectWithManager | undefined> {
         const result = await db.query.projects.findFirst({
             where: {
                 AND: [
                     { id: { eq: projectId } },
-                    { createdBy: { eq: userId } }
                 ]
             },
             with: {
@@ -50,8 +49,13 @@ class ProjectRepository implements IProjectRepository {
         await db.update(projects).set(data).where(and(eq(projects.id, projectId), eq(projects.createdBy, userId)));
     }
 
-    async delete(userId: string, projectId: string): Promise<void> {
-        await db.delete(projects).where(and(eq(projects.id, projectId), eq(projects.createdBy, userId)));
+    async delete(userId: string, projectId: string): Promise<boolean> {
+        const deletedProjects = await db
+            .delete(projects)
+            .where(and(eq(projects.id, projectId), eq(projects.createdBy, userId)))
+            .returning({ id: projects.id });
+
+        return deletedProjects.length > 0;
     }
 }
 

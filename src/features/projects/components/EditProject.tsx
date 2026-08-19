@@ -31,6 +31,7 @@ export default function EditProject({project}: Props) {
         const response = await editProjectAction(data, project.id);
         if (!response.ok) return toast.error(response.error);
 
+        methods.reset();
         toast.success(response.message);
         router.push("/projects");
     };
