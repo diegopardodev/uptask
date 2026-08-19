@@ -8,6 +8,10 @@ import Breadcrums from "@/src/shared/components/ui/Breadcrums";
 import LinkButton from "@/src/shared/components/ui/LinkButton";
 import DropdownMenu from "@/src/features/projects/components/DropdownMenu";
 import { requireSession } from "@/src/shared/utils/auth-server";
+import Tabs from "@/src/shared/components/ui/Tabs";
+import { ProjectTabSearchParamsSchema } from "@/src/features/projects/schemas";
+import Overview from "@/src/features/projects/components/Overview";
+import Tasks from "@/src/features/projects/components/Tasks";
 
 export async function generateMetadata(props: PageProps<"/projects/[id]">): Promise<Metadata> {
     const session = await requireSession();
@@ -26,6 +30,8 @@ export default async function ProjectDetailPage(props: PageProps<"/projects/[id]
     const project = await projectService.getProject(session.user.id, id);
     if (!project) notFound();
 
+    const { tab } = ProjectTabSearchParamsSchema.parse(await props.searchParams);
+
     return (
         <>
             <Breadcrums labels={{ [project.id]: project.name }} />
@@ -33,7 +39,9 @@ export default async function ProjectDetailPage(props: PageProps<"/projects/[id]
                 <div>
                     <p className="uppercase font-medium text-xs text-gray-500 mb-3">{project.client}</p>
                     <UnderlineHeading title="" highlight={`${project.name}`}/>
-                    <Heading level={5} className="text-gray-500 mt-5 max-w-auto md:max-w-2xl">{project.description}</Heading>
+                    { tab === "overview" && 
+                        <Heading level={5} className="text-gray-500 mt-5 max-w-auto md:max-w-2xl">{project.description}</Heading>
+                    }
                 </div>
 
                 <div className="mt-5 md:mt-0 flex items-center gap-3 w-full md:w-fit">
@@ -44,6 +52,12 @@ export default async function ProjectDetailPage(props: PageProps<"/projects/[id]
                     <DropdownMenu project={project} />
                 </div>
             </div>
+
+            <Tabs tabs={[{ name: "Overview", value: "overview" }, { name: "Tasks", value: "tasks" }, { name: "Team", value: "team" }]} />
+
+            {tab === "overview" && <Overview project={project} />}
+            {tab === "tasks" && <Tasks />}  
+            {tab === "team" && <p>team</p>}  
         </>
     );
 }

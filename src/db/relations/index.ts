@@ -29,7 +29,7 @@ export const relations = defineRelations(schema, (r) => ({
             })
         },
         projects: {
-            creator: r.one.users({
+            manager: r.one.users({
                 from: r.projects.createdBy,
                 to: r.users.id,
                 optional: false

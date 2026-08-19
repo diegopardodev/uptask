@@ -6,10 +6,12 @@ import { projectService } from "@/src/features/projects/services/ProjectService"
 import Heading from "@/src/shared/components/typography/Heading";
 import UnderlineHeading from "@/src/shared/components/typography/UnderlineHeading";
 import LinkButton from "@/src/shared/components/ui/LinkButton";
+import { requireSession } from "@/src/shared/utils/auth-server";
 
 export async function generateMetadata(props: PageProps<"/projects/[id]/edit">): Promise<Metadata> {
-    const {id} = await props.params;
-    const project = await projectService.getProject(id);
+    const session = await requireSession();
+    const { id } = await props.params;
+    const project = await projectService.getProject(session.user.id, id);
     if (!project) notFound();
 
     return {
@@ -18,8 +20,9 @@ export async function generateMetadata(props: PageProps<"/projects/[id]/edit">):
 }
 
 export default async function EditProjectPage(props: PageProps<"/projects/[id]/edit">) {
+    const session = await requireSession();
     const { id } = await props.params;
-    const project = await projectService.getProject(id);
+    const project = await projectService.getProject(session.user.id, id);
     if (!project) notFound();
 
     return (

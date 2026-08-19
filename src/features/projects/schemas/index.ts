@@ -6,18 +6,22 @@ const BaseSchema = z.object({
     description: z.string().trim().max(500, { error: "The description can't be longer than 500 characters" }).optional()
 });
 
-export const ProjectIdSchema = z.object({
-    id: z.uuid()
-});
-
 export const ProjectSchema = BaseSchema.pick({
     name: true,
     client: true,
     description: true
 });
 
+export const ProjectIdSchema = z.object({
+    id: z.uuid()
+});
+
 export const ProjectsSearchParamsSchema = z.object({
     page: z.coerce.number().int().positive().catch(1)
+});
+
+export const ProjectTabSearchParamsSchema = z.object({
+    tab: z.enum(["overview", "tasks", "team"]).catch("overview")
 });
 
 export type ProjectInput = z.infer<typeof ProjectSchema>;
