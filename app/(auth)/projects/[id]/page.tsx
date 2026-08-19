@@ -11,7 +11,7 @@ import { requireSession } from "@/src/shared/utils/auth-server";
 import Tabs from "@/src/shared/components/ui/Tabs";
 import { ProjectTabSearchParamsSchema } from "@/src/features/projects/schemas";
 import Overview from "@/src/features/projects/components/Overview";
-import Tasks from "@/src/features/projects/components/Tasks";
+import Task from "@/src/features/task/components/Task";
 
 export async function generateMetadata(props: PageProps<"/projects/[id]">): Promise<Metadata> {
     const session = await requireSession();
@@ -44,19 +44,21 @@ export default async function ProjectDetailPage(props: PageProps<"/projects/[id]
                     }
                 </div>
 
-                <div className="mt-5 md:mt-0 flex items-center gap-3 w-full md:w-fit">
-                    <LinkButton type="outline" href={`/projects/${project.id}/edit`} className="w-full md:w-fit text-center flex items-center gap-2 justify-center">
-                        <PencilIcon className="text-primary-500 size-4" />
-                        Edit project
-                    </LinkButton>
-                    <DropdownMenu project={project} />
-                </div>
+                {tab === "overview" &&
+                    <div className="mt-5 md:mt-0 flex items-center gap-3 w-full md:w-fit">
+                        <LinkButton type="outline" href={`/projects/${project.id}/edit`} className="w-full md:w-fit text-center flex items-center gap-2 justify-center">
+                            <PencilIcon className="text-primary-500 size-4" />
+                            Edit project
+                        </LinkButton>
+                        <DropdownMenu project={project} />
+                    </div>
+                }
             </div>
 
             <Tabs tabs={[{ name: "Overview", value: "overview" }, { name: "Tasks", value: "tasks" }, { name: "Team", value: "team" }]} />
 
             {tab === "overview" && <Overview project={project} />}
-            {tab === "tasks" && <Tasks />}  
+            {tab === "tasks" && <Task />}  
             {tab === "team" && <p>team</p>}  
         </>
     );

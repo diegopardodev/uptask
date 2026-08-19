@@ -32,8 +32,7 @@ export default function Tabs({ tabs }: Props) {
 
     return (
         <div>
-            <div className="grid grid-cols-1 sm:hidden mt-5">
-                {/* Use an "onChange" listener to redirect the user to the selected tab URL. */}
+            <div className="grid grid-cols-1 md:hidden mt-5">
                 <select
                     id="tabs"
                     value={current}
@@ -42,7 +41,7 @@ export default function Tabs({ tabs }: Props) {
                     className="col-start-1 row-start-1 w-full appearance-none rounded-md bg-white py-2 pr-8 pl-3 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-primary-500"
                 >
                     {tabs.map((tab) => (
-                        <option key={tab.name}>{tab.name}</option>
+                        <option key={tab.name} value={tab.value}>{tab.name}</option>
                     ))}
                 </select>
                 <ChevronDownIcon
@@ -50,7 +49,7 @@ export default function Tabs({ tabs }: Props) {
                     className="pointer-events-none col-start-1 row-start-1 mr-2 size-5 self-center justify-self-end fill-gray-500"
                 />
             </div>
-            <div className="hidden sm:block mt-10">
+            <div className="hidden md:block mt-10">
                 <nav aria-label="Tabs" className="flex space-x-4 bg-gray-100 p-1 w-fit rounded-md">
                     {tabs.map((tab) => (
                         <Link
