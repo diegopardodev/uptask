@@ -17,10 +17,10 @@ export class TaskPolicy {
     }
 
     static canDelete(user: User, task: SelectTask, project: SelectProject): boolean {
-        return TaskPolicy.belongsTo(task, project) && ProjectPolicy.canView(user, project);
+        return TaskPolicy.belongsTo(task, project) && ProjectPolicy.isAdmin(user, project);
     }
 
-    static canChanceStatus(user: User, task: SelectTask, project: SelectProject) {
+    static canChangeStatus(user: User, task: SelectTask, project: SelectProject) {
         return TaskPolicy.belongsTo(task, project) && ProjectPolicy.isMember(user, project);
     }
 }

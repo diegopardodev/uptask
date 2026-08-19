@@ -1,4 +1,4 @@
-import { and, count, desc, eq } from "drizzle-orm";
+import { count, desc, eq } from "drizzle-orm";
 import { db } from "@/src/db";
 import { ProjectInput } from "../schemas";
 import { projects } from "@/src/db/schema/projects";
@@ -8,8 +8,8 @@ export interface IProjectRepository {
     create(data: ProjectInput, userId: string): Promise<void>;
     findAll(userId: string, limit: number, offset: number): Promise<SelectProject[]>;
     findById(projectId: string): Promise<SelectProjectWithManager | undefined>;
-    update(data: ProjectInput, userId: string, projectId: string): Promise<void>;
-    delete(userId: string, projectId: string): Promise<boolean>;
+    update(data: ProjectInput, projectId: string): Promise<void>;
+    delete(projectId: string): Promise<void>;
     countAll(userId: string): Promise<number>;
 }
 
@@ -45,17 +45,12 @@ class ProjectRepository implements IProjectRepository {
         return result;
     }
 
-    async update(data: ProjectInput, userId: string, projectId: string): Promise<void> {
-        await db.update(projects).set(data).where(and(eq(projects.id, projectId), eq(projects.createdBy, userId)));
+    async update(data: ProjectInput, projectId: string): Promise<void> {
+        await db.update(projects).set(data).where(eq(projects.id, projectId));
     }
 
-    async delete(userId: string, projectId: string): Promise<boolean> {
-        const deletedProjects = await db
-            .delete(projects)
-            .where(and(eq(projects.id, projectId), eq(projects.createdBy, userId)))
-            .returning({ id: projects.id });
-
-        return deletedProjects.length > 0;
+    async delete(projectId: string): Promise<void> {
+        await db.delete(projects).where(eq(projects.id, projectId));
     }
 }
 

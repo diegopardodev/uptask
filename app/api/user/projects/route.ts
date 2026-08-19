@@ -1,5 +1,6 @@
 import { ProjectIdSchema } from "@/src/features/projects/schemas";
 import { projectService } from "@/src/features/projects/services/ProjectService";
+import { ProjectPolicy } from "@/src/features/projects/policies/ProjectPolicy";
 import { getSession } from "@/src/shared/utils/auth-server";
 
 export async function POST(request: Request) {
@@ -18,8 +19,12 @@ export async function POST(request: Request) {
 
     if (!data.success) return Response.json({ errors: data.error.issues }, { status: 400 });
 
-    const deleted = await projectService.deleteProject(session.user.id, data.data.id);
-    if (!deleted) return Response.json({ error: "Project not found" }, { status: 404 });
+    const project = await projectService.getProject(data.data.id);
+    if (!project || !ProjectPolicy.canDelete(session.user, project)) {
+        return Response.json({ error: "Project not found" }, { status: 404 });
+    }
+
+    await projectService.deleteProject(data.data.id);
 
     return Response.json({ ok: true }, { status: 200 });
 }

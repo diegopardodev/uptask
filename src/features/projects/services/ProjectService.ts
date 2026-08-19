@@ -32,12 +32,12 @@ class ProjectService {
         return await this.projectRepository.findById(projectId);
     }
 
-    async editProject(data: ProjectInput, userId: string, projectId: string) {
-        await this.projectRepository.update(data, userId, projectId);
+    async editProject(data: ProjectInput, projectId: string) {
+        await this.projectRepository.update(data, projectId);
     }
 
-    async deleteProject(userId: string, projectId: string): Promise<boolean> {
-        return await this.projectRepository.delete(userId, projectId);
+    async deleteProject(projectId: string): Promise<void> {
+        await this.projectRepository.delete(projectId);
     }
 }
 
