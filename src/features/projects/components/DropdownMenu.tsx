@@ -1,11 +1,12 @@
 "use client";
 
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
-import { EllipsisHorizontalIcon } from "@heroicons/react/24/outline";
+import { EllipsisHorizontalIcon, LinkIcon, TrashIcon, UserIcon } from "@heroicons/react/24/outline";
 import DeleteProject from "./DeleteProject";
 import { useProjectStore } from "../store";
 import Button from "@/src/shared/components/ui/Button";
 import { SelectProject } from "../types";
+import { toast } from "sonner";
 
 type Props = {
     project: SelectProject;
@@ -13,6 +14,15 @@ type Props = {
 
 export default function DropdownMenu({project}: Props) {
     const { setOpen, setProject } = useProjectStore();
+
+    const copyLink = async () => {
+        try {
+            await navigator.clipboard.writeText(`${window.location.origin}/projects/${project.id}`);
+            toast.success("Link copied.");
+        } catch {
+            toast.error("Couldn't copy the link.");
+        }
+    };
 
     return (
         <>
@@ -30,10 +40,22 @@ export default function DropdownMenu({project}: Props) {
                         <MenuItem>
                             <a
                                 href="#"
-                                className="block px-4 py-2 text-sm text-gray-700 data-focus:bg-gray-100 data-focus:text-gray-900 data-focus:outline-hidden"
+                                className="px-4 py-2 text-sm text-gray-700 data-focus:bg-gray-100 data-focus:text-gray-900 data-focus:outline-hidden flex items-center gap-2"
                             >
+                                <UserIcon className="size-4 text-gray-500" />
                                 Add collaborator
                             </a>
+                        </MenuItem>
+
+                        <MenuItem>
+                            <Button
+                                variant="menu"
+                                onClick={copyLink}
+                                className="flex items-center gap-2"
+                            >
+                                <LinkIcon className="size-4 text-gray-500" />
+                                Copy link
+                            </Button>
                         </MenuItem>
 
                         <MenuItem>
@@ -45,6 +67,7 @@ export default function DropdownMenu({project}: Props) {
                                 }}
                                 className="flex items-center gap-2"
                             >
+                                <TrashIcon className="size-4" />
                                 Delete project
                             </Button>
                         </MenuItem>

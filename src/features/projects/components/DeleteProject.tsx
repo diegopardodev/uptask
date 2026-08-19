@@ -9,11 +9,10 @@ import Button from "@/src/shared/components/ui/Button";
 
 export default function DeleteProject() {
     const router = useRouter();
-    const { open, setOpen, project, setProject } = useProjectStore();
+    const { open, setOpen, project } = useProjectStore();
 
     const close = () => {
         setOpen(false);
-        setProject(null);
     };
 
     const handleDelete = async () => {
@@ -46,7 +45,7 @@ export default function DeleteProject() {
                         className="relative transform overflow-hidden rounded-lg bg-white px-4 pt-5 pb-4 text-left shadow-xl transition-all data-closed:translate-y-4 data-closed:opacity-0 data-enter:duration-300 data-enter:ease-out data-leave:duration-200 data-leave:ease-in sm:my-8 sm:w-full sm:max-w-md sm:p-6 data-closed:sm:translate-y-0 data-closed:sm:scale-95"
                     >
                         <div className="flex gap-5">
-                            <ExclamationTriangleIcon className="size-15 bg-red-100 rounded-full p-2 h-fit text-red-500" />
+                            <ExclamationTriangleIcon className="size-10 shrink-0 bg-red-100 rounded-full p-2 text-red-500" />
                             <div className="space-y-2">
                                 <p className="font-bold text-base">Delete this project?</p>
                                 <span className="text-sm text-gray-500">{project?.name} and all 12 of its tasks will be permanently deleted. This can&apos;t be undone.</span>
