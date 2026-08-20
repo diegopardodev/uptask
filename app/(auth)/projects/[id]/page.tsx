@@ -13,7 +13,7 @@ import { requireSession } from "@/src/shared/utils/auth-server";
 import Tabs from "@/src/shared/components/ui/Tabs";
 import { ProjectTabSearchParamsSchema } from "@/src/features/projects/schemas";
 import Overview from "@/src/features/projects/components/Overview";
-import Task from "@/src/features/task/components/Task";
+import Task from "@/src/features/tasks/components/Task";
 
 const getProjectForCurrentUser = cache(async (projectId: string) => {
     const session = await requireSession();
@@ -41,7 +41,7 @@ export default async function ProjectDetailPage(props: PageProps<"/projects/[id]
     const { tab } = ProjectTabSearchParamsSchema.parse(await props.searchParams);
 
     return (
-        <>
+        <div className="flex min-h-0 flex-1 flex-col">
             <Breadcrums labels={{ [project.id]: project.name }} />
             <div className="mt-10 flex flex-col justify-start md:flex-row md:justify-between md:items-start">
                 <div>
@@ -68,6 +68,6 @@ export default async function ProjectDetailPage(props: PageProps<"/projects/[id]
             {tab === "overview" && <Overview project={project} />}
             {tab === "tasks" && <Task canAddTask={ProjectPolicy.canAddTask(session.user, project)} />}
             {tab === "team" && <p>team</p>}  
-        </>
+        </div>
     );
 }

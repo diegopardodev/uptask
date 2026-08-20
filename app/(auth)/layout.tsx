@@ -12,10 +12,10 @@ export default async function Layout({children}: LayoutProps<"/">) {
     const session = await requireSession();
 
     return (
-        <>
+        <div className="flex min-h-dvh flex-col">
             <Disclosure
                 as="nav"
-                className="relative bg-white shadow-sm"
+                className="relative shrink-0 bg-white shadow-sm"
             >
                 <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                     <div className="flex h-16 justify-between">
@@ -62,9 +62,9 @@ export default async function Layout({children}: LayoutProps<"/">) {
                 </DisclosurePanel>
             </Disclosure>
 
-            <main className="max-w-7xl mx-auto px-5 py-10 w-full">
+            <main className="mx-auto flex min-h-0 w-full max-w-7xl flex-1 flex-col px-5 py-10">
                 {children}
             </main>
-        </>
+        </div>
     );
 }

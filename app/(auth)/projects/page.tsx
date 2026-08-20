@@ -33,7 +33,6 @@ export default async function ProjectsPage(props: PageProps<"/projects">) {
                         New project
                     </LinkButton>
                 }
-                
             </div>
 
             {total > 0 ? (

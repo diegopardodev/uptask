@@ -17,8 +17,6 @@ type Props = {
 
 export default function Tabs({ tabs }: Props) {
     const searchParams = useSearchParams();
-    console.log(searchParams);
-    console.log(new URLSearchParams(searchParams));
     const pathname = usePathname();
     const router = useRouter();
     const current = searchParams.get("tab") ?? tabs[0].value;
