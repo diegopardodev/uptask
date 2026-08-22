@@ -14,6 +14,8 @@ const geist = Geist({
   variable: "--font-geist"
 });
 
+const appUrl = new URL(process.env.APP_URL!);
+
 export const metadata: Metadata = {
   metadataBase: new URL(env.APP_URL),
   title: {
@@ -24,14 +26,16 @@ export const metadata: Metadata = {
   description: `${env.APP_NAME} is a project and task manager for small teams — plan the work, assign it, and track it to done.`,
   openGraph: {
     type: "website",
+    url: appUrl,
     title: env.APP_NAME,
     description: "Project and task management for small teams.",
     siteName: env.APP_NAME,
     images: [
       {
-        url: "/og-image.png",
+        url: new URL("/og-image.jpg", appUrl),
         width: 1200,
         height: 630,
+        type: "image/jpeg",
         alt: "UpTask — Project and task management for small teams."
       }
     ]
@@ -40,7 +44,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: env.APP_NAME,
     description: "Project and task management for small teams.",
-    images: ["/og-image.png"]
+    images: [new URL("/og-image.jpg", appUrl)]
   }
 };
 
