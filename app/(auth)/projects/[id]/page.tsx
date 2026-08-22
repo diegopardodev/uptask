@@ -14,6 +14,7 @@ import Tabs from "@/src/shared/components/ui/Tabs";
 import { ProjectTabSearchParamsSchema } from "@/src/features/projects/schemas";
 import Overview from "@/src/features/projects/components/Overview";
 import Task from "@/src/features/tasks/components/Task";
+import { taskService } from "@/src/features/tasks/service/taskService";
 
 const getProjectForCurrentUser = cache(async (projectId: string) => {
     const session = await requireSession();
@@ -39,6 +40,8 @@ export default async function ProjectDetailPage(props: PageProps<"/projects/[id]
     const project = await getProjectForCurrentUser(id);
 
     const { tab } = ProjectTabSearchParamsSchema.parse(await props.searchParams);
+
+    const tasks = tab === "tasks" ? await taskService.getProjectTasks(project.id) : [];
 
     return (
         <div className="flex min-h-0 flex-1 flex-col">
@@ -66,7 +69,7 @@ export default async function ProjectDetailPage(props: PageProps<"/projects/[id]
             <Tabs tabs={[{ name: "Overview", value: "overview" }, { name: "Tasks", value: "tasks" }, { name: "Team", value: "team" }]} />
 
             {tab === "overview" && <Overview project={project} />}
-            {tab === "tasks" && <Task canAddTask={ProjectPolicy.canAddTask(session.user, project)} />}
+            {tab === "tasks" && <Task tasks={tasks} canAddTask={ProjectPolicy.canAddTask(session.user, project)} />}
             {tab === "team" && <p>team</p>}  
         </div>
     );

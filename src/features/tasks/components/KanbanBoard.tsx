@@ -1,5 +1,8 @@
 import { taskStatus } from "@/src/db/schema";
 import { classNames } from "@/src/shared/utils/ui";
+import { SelectTask } from "../types";
+import { groupTasksByStatus } from "../utils/groupTasksByStatus";
+import TaskCard from "./TaskCard";
 
 const statusLabels: Record<(typeof taskStatus.enumValues[number]), string> = {
     PENDING: "Pending",
@@ -25,12 +28,24 @@ const statuses = taskStatus.enumValues.map((status, index) => {
     };
 });
 
-export default function KanbanBoard() {
+type Props = {
+    tasks: SelectTask[];
+};
+
+export default function KanbanBoard({tasks}: Props) {
+    const tasksByStatus = groupTasksByStatus(tasks);
+
     return (
-        <div className="no-scrollbar mt-10 flex min-h-0 flex-1 items-stretch gap-5 overflow-x-auto">
+        <div className="no-scrollbar mt-10 flex min-h-0 flex-1 items-stretch gap-5 overflow-x-auto overflow-y-hidden">
             {statuses.map(status => (
-                <div key={status.id} className={classNames(classes[status.status], "min-w-58 flex-1 shrink-0 bg-gray-50 p-3 shadow-lg")}>
-                    <p className="text-xs font-semibold tracking-wider text-gray-600 uppercase whitespace-nowrap">{status.label}</p>
+                <div key={status.id} className={classNames(classes[status.status], "flex min-h-0 min-w-58 flex-1 shrink-0 flex-col bg-gray-50 p-3 shadow-lg")}>
+                    <p className="shrink-0 text-xs font-semibold tracking-wider text-gray-600 uppercase whitespace-nowrap">{status.label}</p>
+
+                    <ul className="mt-3 flex min-h-0 flex-1 flex-col gap-3 overflow-y-auto no-scrollbar">
+                        {tasksByStatus[status.status].map(task => (
+                            <TaskCard key={task.id} task={task} />
+                        ))}
+                    </ul>
                 </div>
             ))}
         </div>
